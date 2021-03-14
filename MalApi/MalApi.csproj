@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>athulrajts</Authors>
+    <Company />
+    <Description>.NET wrapper for offical MyAnimelist API v2</Description>
+    <Copyright>Copyright (c) 2021 athulrajts</Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/athulrajts/MyAnimeListApi-v2-Wrapper</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>MyAnimeList, Mal, MyAnimeListApi, api, v2, MalApi , MalApiV2</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\DataContainer\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
