@@ -29,3 +29,5 @@ var client = new MalClient("yourAccessToken");
 * GetMangaAsync
 * GetRankedMangaAsync
 * UpdateUserMangaStatusAsync
+* DeleteUserMangaAsync
+* GetUserMangaAsync

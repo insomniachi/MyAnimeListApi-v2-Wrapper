@@ -115,9 +115,23 @@ namespace MalApi
         public async Task<UserMangaStatus> UpdateUserMangaStatusAsync(int id, MangaStatus status = MangaStatus.None, bool? isReReading = null, int score = -1, int volumesRead = -1,
                         int chaptersRead = -1, int priority = -1, int reReadCount = -1, int reReadValue = -1, string tags = "", string comments ="")
         {
-            var reqeust = new UpdateMangaUserStatusRequest(id, status, isReReading, score, volumesRead, chaptersRead, priority, reReadCount, reReadValue, tags, comments);
+            var request = new UpdateMangaUserStatusRequest(id, status, isReReading, score, volumesRead, chaptersRead, priority, reReadCount, reReadValue, tags, comments);
 
-            return await reqeust.PutAsync();
+            return await request.PutAsync();
+        }
+
+        public async Task<bool> DeleteUserMangaAsync(int id)
+        {
+            var request = new DeleteUserMangaRequest(id);
+
+            return await request.DeleteAsync();
+        }
+
+        public async Task<List<Manga>> GetUserMangaAsync(MangaStatus status = MangaStatus.None)
+        {
+            var request = new GetUserMangaListRequest(status);
+
+            return await request.GetAsync();
         }
     }
 }
