@@ -22,6 +22,13 @@ internal partial class AnimeEndPoint  : IGetAnimeRequest
         return await ParseAnime(url);
     }
 
+    public async Task<bool> RemoveFromList()
+    {
+        var url = $"https://api.myanimelist.net/v2/anime/{Id}/my_list_status";
+        var response = await Http.Client.DeleteAsync(url);
+        return response.IsSuccessStatusCode;
+    }
+
     public IUpdateRequest UpdateStatus() => this;
     IGetAnimeRequest IGetAnimeRequest.WithFields(params string[] fields) => WithFields(fields);
 }

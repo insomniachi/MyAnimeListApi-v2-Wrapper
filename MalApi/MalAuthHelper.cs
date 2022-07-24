@@ -72,7 +72,7 @@ public static class MalAuthHelper
         return await ReadAuthResults(await client.SendAsync(req).ConfigureAwait(false)).ConfigureAwait(false);
     }
 
-    public static async Task<OAuthToken> RefreshToken(string refreshToken, string clientId)
+    public static async Task<OAuthToken> RefreshToken(string clientId, string refreshToken)
     {
         var nvc = new Dictionary<string, string>
         {
