@@ -1,24 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-	<Platforms>x64</Platforms>
-	<Description>C# wrapper for MyAnimeList API v2</Description>
-	<PackageProjectUrl></PackageProjectUrl>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<RepositoryUrl>https://github.com/athulrajts/MyAnimeListApi-v2-Wrapper</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Platforms>x64</Platforms>
+		<Description>C# wrapper for MyAnimeList API v2</Description>
+		<PackageProjectUrl></PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/athulrajts/MyAnimeListApi-v2-Wrapper</RepositoryUrl>
+		<PackageId>MalApi.V2</PackageId>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+	</ItemGroup>
 
 </Project>

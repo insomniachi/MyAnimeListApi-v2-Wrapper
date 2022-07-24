@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_PATH: 'MalApi/MalApi.csproj'
-  PROJECT_NAME: 'MalApi'
+  PROJECT_NAME: 'MalApi.V2'
   PACKAGE_OUTPUT_DIRECTORY : ${{ github.workspace }}\output
   NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
 
