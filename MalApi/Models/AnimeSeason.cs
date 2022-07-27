@@ -4,7 +4,7 @@
     {
         Winter,
         Summer,
-        Sprint,
+        Spring,
         Fall
     }
 }
