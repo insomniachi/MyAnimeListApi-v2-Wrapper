@@ -1,9 +1,15 @@
-﻿namespace MalApi
+﻿using System.ComponentModel;
+
+namespace MalApi;
+
+public enum AiringStatus
 {
-    public enum AiringStatus
-    {
-        FinishedAiring,
-        CurrentlyAiring,
-        NotYetAired
-    }
+    [Description("Finished Airing")]
+    FinishedAiring,
+
+    [Description("Currently Airing")]
+    CurrentlyAiring,
+
+    [Description("Not Yet Aired")]
+    NotYetAired
 }

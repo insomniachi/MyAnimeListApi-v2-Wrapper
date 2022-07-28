@@ -23,11 +23,11 @@ internal partial class AnimeEndPoint
     public AnimeStatus Status { get; set; } = AnimeStatus.None;
     public UserAnimeSort UserAnimeSort { get; set; } = UserAnimeSort.UserScore;
     public bool? IsRewatching { get; set; }
-    public int? Score { get; set; }
+    public Score? Score { get; set; }
     public int? EpisodesWatched { get; set; }
-    public int? Priority { get; set; }
+    public Priority? Priority { get; set; }
     public int? RewatchCount { get; set; }
-    public int? RewatchValue { get; set; }
+    public RewatchValue? RewatchValue { get; set; }
     public string Tags { get; set; }
     public string Comments { get; set; }
 
@@ -84,7 +84,7 @@ internal partial class AnimeEndPoint
         return this;
     }
 
-    private AnimeEndPoint WithPriority(int priority)
+    private AnimeEndPoint WithPriority(Priority priority)
     {
         Priority = priority;
         return this;
@@ -96,7 +96,7 @@ internal partial class AnimeEndPoint
         return this;
     }
 
-    private AnimeEndPoint WithRewatchValue(int rewatchValue)
+    private AnimeEndPoint WithRewatchValue(RewatchValue rewatchValue)
     {
         RewatchValue = rewatchValue;
         return this;
@@ -108,7 +108,7 @@ internal partial class AnimeEndPoint
         return this;
     }
 
-    private AnimeEndPoint WithScore(int score)
+    private AnimeEndPoint WithScore(Score score)
     {
         Score = score;
         return this;

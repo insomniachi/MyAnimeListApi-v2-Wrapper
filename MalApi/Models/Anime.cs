@@ -1,15 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 using MalApi.JsonConverters;
-using MalApi.Models;
 
 namespace MalApi
 {
-    public class Anime : BindableBase
+    public class Anime
     {
-        private UserAnimeStatus _userStatus;
-
         [JsonPropertyName(AnimeFieldNames.Id)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [JsonPropertyName(AnimeFieldNames.Title)]
         public string Title { get; set; }
@@ -66,20 +63,7 @@ namespace MalApi
         public AiringStatus? Status { get; set; }
 
         [JsonPropertyName(AnimeFieldNames.UserStatus)]
-        public UserAnimeStatus UserStatus
-        {
-            get => _userStatus;
-            set 
-            {
-                if (_userStatus != null)
-                {
-                    _userStatus.PropertyChanged -= UserStatus_PropertyChanged;
-                }
-                _userStatus = value;
-
-                _userStatus.PropertyChanged += UserStatus_PropertyChanged;
-            }
-        }
+        public UserAnimeStatus UserStatus { get; set; }
 
         [JsonPropertyName(AnimeFieldNames.TotalEpisdoes)]
         public int? TotalEpisodes { get; set; }
@@ -110,10 +94,5 @@ namespace MalApi
         public string Background { get; set; }
 
         public override string ToString() => Title;
-
-        private void UserStatus_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            RaisePropertyChanged($"UserStatus.{e.PropertyName}");
-        }
     }
 }

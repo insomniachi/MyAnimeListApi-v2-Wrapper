@@ -5,12 +5,12 @@ namespace MalApi.Interfaces;
 public interface IUpdateRequest
 {
     IUpdateRequest WithStatus(AnimeStatus status);
-    IUpdateRequest WithScore(int score);
+    IUpdateRequest WithScore(Score score);
     IUpdateRequest WithIsRewatching(bool rewatching);
     IUpdateRequest WithEpisodesWatched(int episodesWatched);
-    IUpdateRequest WithPriority(int priority);
+    IUpdateRequest WithPriority(Priority priority);
     IUpdateRequest WithRewatchCount(int rewatchCount);
-    IUpdateRequest WithRewatchValue(int rewatchValue);
+    IUpdateRequest WithRewatchValue(RewatchValue rewatchValue);
     IUpdateRequest WithTags(string tags);
     IUpdateRequest WithComments(string comments);
     Task<UserAnimeStatus> Publish();

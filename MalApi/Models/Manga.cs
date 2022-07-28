@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using MalApi.JsonConverters;
-using MalApi.Models;
 
 namespace MalApi
 {
-    public class Manga : BindableBase
+    public class Manga
     {
         [JsonPropertyName("id")]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [JsonPropertyName("title")]
         public string Title { get; set; }

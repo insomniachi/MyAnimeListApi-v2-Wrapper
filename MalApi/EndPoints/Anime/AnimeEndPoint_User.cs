@@ -54,10 +54,10 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateRequest
 
     IUpdateRequest IUpdateRequest.WithStatus(AnimeStatus status) => WithStatus(status);
     IUpdateRequest IUpdateRequest.WithTags(string tags) => WithTags(tags);
-    IUpdateRequest IUpdateRequest.WithPriority(int priority) => WithPriority(priority);
+    IUpdateRequest IUpdateRequest.WithPriority(Priority priority) => WithPriority(priority);
     IUpdateRequest IUpdateRequest.WithRewatchCount(int rewatchCount) => WithRewatchCount(rewatchCount);
-    IUpdateRequest IUpdateRequest.WithRewatchValue(int rewatchValue) => WithRewatchCount(rewatchValue);
-    IUpdateRequest IUpdateRequest.WithScore(int score) => WithScore(score);
+    IUpdateRequest IUpdateRequest.WithRewatchValue(RewatchValue rewatchValue) => WithRewatchValue(rewatchValue);
+    IUpdateRequest IUpdateRequest.WithScore(Score score) => WithScore(score);
     IUpdateRequest IUpdateRequest.WithIsRewatching(bool rewatching) => WithIsRewatching(rewatching);
     IUpdateRequest IUpdateRequest.WithComments(string comments) => WithComments(comments);
     IUpdateRequest IUpdateRequest.WithEpisodesWatched(int episodesWatched) => WithEpisodesWatched(episodesWatched);
@@ -78,7 +78,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateRequest
 
         if (Score is { } score)
         {
-            @params.Add("score", score.ToString());
+            @params.Add("score", ((int)score).ToString());
         }
 
         if (EpisodesWatched is { } ep)
@@ -88,7 +88,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateRequest
 
         if (Priority is { } priority)
         {
-            @params.Add("priority", priority.ToString());
+            @params.Add("priority", ((int)priority).ToString());
         }
 
         if (RewatchCount is { } rewatchCount)
@@ -98,7 +98,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateRequest
 
         if (RewatchValue is { } rewatchValue)
         {
-            @params.Add("rewatch_value", rewatchValue.ToString());
+            @params.Add("rewatch_value", ((int)rewatchValue).ToString());
         }
 
         if (string.IsNullOrEmpty(Tags) == false)
