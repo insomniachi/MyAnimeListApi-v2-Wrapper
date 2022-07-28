@@ -13,6 +13,6 @@ public interface IGetSeasonalAnimeListRequest
     IGetSeasonalAnimeListRequest SortBy(SeasonalAnimeSort sort);
     Task<PagedAnime> Find();
 
-    IGetSeasonalAnimeListRequest WithFields<T>(Expression<Func<Anime, T>> propExpr)
+    IGetSeasonalAnimeListRequest WithField<T>(Expression<Func<Anime, T>> propExpr)
         => WithFields(ExpressionsHelper.GetJsonPropertyNames(propExpr));
 }

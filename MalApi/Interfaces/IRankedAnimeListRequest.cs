@@ -12,6 +12,6 @@ public interface IGetRankedAnimeListRequest
     IGetRankedAnimeListRequest WithFields(params string[] fields);
     Task<PagedRankedAnime> Find();
 
-    IGetRankedAnimeListRequest WithFields<T>(Expression<Func<Anime, T>> propExpr)
+    IGetRankedAnimeListRequest WithField<T>(Expression<Func<Anime, T>> propExpr)
         => WithFields(ExpressionsHelper.GetJsonPropertyNames(propExpr));
 }

@@ -11,6 +11,6 @@ public interface IGetAnimeRequest
     Task<bool> RemoveFromList();
     Task<Anime> Find();
 
-    IGetAnimeRequest WithFields<T>(Expression<Func<Anime, T>> propExpr)
+    IGetAnimeRequest WithField<T>(Expression<Func<Anime, T>> propExpr)
         => WithFields(ExpressionsHelper.GetJsonPropertyNames(propExpr));
 }

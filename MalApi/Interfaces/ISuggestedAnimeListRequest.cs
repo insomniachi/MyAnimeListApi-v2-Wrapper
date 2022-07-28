@@ -11,6 +11,6 @@ public interface IGetSuggestedAnimeListRequest
     IGetSuggestedAnimeListRequest WithFields(params string[] fields);
     Task<PagedAnime> Find();
 
-    IGetSuggestedAnimeListRequest WithFields<T>(Expression<Func<Anime, T>> propExpr)
+    IGetSuggestedAnimeListRequest WithField<T>(Expression<Func<Anime, T>> propExpr)
         => WithFields(ExpressionsHelper.GetJsonPropertyNames(propExpr));
 }
