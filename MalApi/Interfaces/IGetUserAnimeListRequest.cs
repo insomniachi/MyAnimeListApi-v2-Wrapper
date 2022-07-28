@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
+using System;
+using System.Threading.Tasks;
 using MalApi.Requests;
 
 namespace MalApi.Interfaces;
@@ -11,4 +13,7 @@ public interface IUserAnimeListRequest
     IUserAnimeListRequest SortBy(UserAnimeSort sort);
     IUserAnimeListRequest WithStatus(AnimeStatus status);
     Task<PagedAnime> Find();
+
+    IUserAnimeListRequest WithField<T>(Expression<Func<Anime,T>> propExpr)
+        => WithFields(ExpressionsHelper.GetJsonPropertyNames(propExpr));
 }

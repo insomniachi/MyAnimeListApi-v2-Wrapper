@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace MalApi.Interfaces;
 
@@ -8,4 +10,7 @@ public interface IGetAnimeListRequest
     IGetAnimeListRequest WithFields(params string[] fields);
     IGetAnimeListRequest WithOffset(int offset);
     Task<PagedAnime> Find();
+
+    IGetAnimeListRequest WithField<T>(Expression<Func<Anime, T>> propExpr)
+        => WithFields(ExpressionsHelper.GetJsonPropertyNames(propExpr));
 }

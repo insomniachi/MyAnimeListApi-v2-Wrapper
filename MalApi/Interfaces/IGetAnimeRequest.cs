@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
+using System;
+using System.Threading.Tasks;
 
 namespace MalApi.Interfaces;
 
@@ -8,4 +10,7 @@ public interface IGetAnimeRequest
     IUpdateRequest UpdateStatus();
     Task<bool> RemoveFromList();
     Task<Anime> Find();
+
+    IGetAnimeRequest WithFields<T>(Expression<Func<Anime, T>> propExpr)
+        => WithFields(ExpressionsHelper.GetJsonPropertyNames(propExpr));
 }

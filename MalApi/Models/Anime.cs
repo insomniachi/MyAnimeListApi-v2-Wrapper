@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using MalApi.JsonConverters;
 using MalApi.Models;
 
@@ -10,64 +8,64 @@ namespace MalApi
     {
         private UserAnimeStatus _userStatus;
 
-        [JsonPropertyName("id")]
+        [JsonPropertyName(AnimeFieldNames.Id)]
         public int ID { get; set; }
 
-        [JsonPropertyName("title")]
+        [JsonPropertyName(AnimeFieldNames.Title)]
         public string Title { get; set; }
 
-        [JsonPropertyName("main_picture")]
+        [JsonPropertyName(AnimeFieldNames.MainPicture)]
         public Picture MainPicture { get; set; }
 
-        [JsonPropertyName("alternative_titles")]
+        [JsonPropertyName(AnimeFieldNames.AlternativeTitles)]
         public AlternativeTitles AlternativeTitles { get; set; }
 
-        [JsonPropertyName("start_date")]
+        [JsonPropertyName(AnimeFieldNames.StartDate)]
         public string StartDate { get; set; }
 
-        [JsonPropertyName("end_date")]
+        [JsonPropertyName(AnimeFieldNames.EndDate)]
         public string EndDate { get; set; }
 
-        [JsonPropertyName("synopsis")]
+        [JsonPropertyName(AnimeFieldNames.Synopsis)]
         public string Synopsis { get; set; }
 
-        [JsonPropertyName("mean")]
-        public float MeanScore { get; set; }
+        [JsonPropertyName(AnimeFieldNames.Mean)]
+        public float? MeanScore { get; set; }
 
-        [JsonPropertyName("rank")]
-        public int Rank { get; set; }
+        [JsonPropertyName(AnimeFieldNames.Rank)]
+        public int? Rank { get; set; }
 
-        [JsonPropertyName("popularity")]
-        public int Popularity { get; set; }
+        [JsonPropertyName(AnimeFieldNames.Popularity)]
+        public int? Popularity { get; set; }
 
-        [JsonPropertyName("num_list_users")]
-        public int NumberOfUsers { get; set; }
+        [JsonPropertyName(AnimeFieldNames.NumberOfUsers)]
+        public int? NumberOfUsers { get; set; }
 
-        [JsonPropertyName("num_scoring_users")]
-        public int NumberOfScoringUsers { get; set; }
+        [JsonPropertyName(AnimeFieldNames.NumberOfScoringUsers)]
+        public int? NumberOfScoringUsers { get; set; }
 
-        [JsonPropertyName("nsfw")]
+        [JsonPropertyName(AnimeFieldNames.Nsfw)]
         [JsonConverter(typeof(NsfwConverter))]
-        public NsfwLevel NsfwLevel { get; set; }
+        public NsfwLevel? NsfwLevel { get; set; }
 
-        [JsonPropertyName("genres")]
+        [JsonPropertyName(AnimeFieldNames.Genres)]
         public Genre[] Genres { get; set; }
 
-        [JsonPropertyName("created_at")]
+        [JsonPropertyName(AnimeFieldNames.CreatedAt)]
         public string CreatedAt { get; set; }
 
-        [JsonPropertyName("updated_at")]
+        [JsonPropertyName(AnimeFieldNames.UpdatedAt)]
         public string UpdatedAt { get; set; }
 
-        [JsonPropertyName("media_type")]
+        [JsonPropertyName(AnimeFieldNames.MediaType)]
         [JsonConverter(typeof(AnimeMediaTypeConverter))]
-        public AnimeMediaType MediaType { get; set; }
+        public AnimeMediaType? MediaType { get; set; }
 
-        [JsonPropertyName("status")]
+        [JsonPropertyName(AnimeFieldNames.Status)]
         [JsonConverter(typeof(AiringStatusConverter))]
-        public AiringStatus Status { get; set; }
+        public AiringStatus? Status { get; set; }
 
-        [JsonPropertyName("my_list_status")]
+        [JsonPropertyName(AnimeFieldNames.UserStatus)]
         public UserAnimeStatus UserStatus
         {
             get => _userStatus;
@@ -83,32 +81,32 @@ namespace MalApi
             }
         }
 
-        [JsonPropertyName("num_episodes")]
-        public int EpisodeCount { get; set; }
+        [JsonPropertyName(AnimeFieldNames.TotalEpisdoes)]
+        public int? TotalEpisodes { get; set; }
 
-        [JsonPropertyName("start_season")]
+        [JsonPropertyName(AnimeFieldNames.StartSeason)]
         public Season StartSeason { get; set; }
 
-        [JsonPropertyName("broadcast")]
+        [JsonPropertyName(AnimeFieldNames.Broadcast)]
         public BroadcastTime Broadcast { get; set; }
 
-        [JsonPropertyName("source")]
+        [JsonPropertyName(AnimeFieldNames.Source)]
         [JsonConverter(typeof(AnimeSourceConverter))]
-        public AnimeSource Source { get; set; }
+        public AnimeSource? Source { get; set; }
 
-        [JsonPropertyName("average_episode_duration")]
-        public int AverageEpisodeDuration { get; set; }
+        [JsonPropertyName(AnimeFieldNames.AverageEpisodeDuration)]
+        public int? AverageEpisodeDuration { get; set; }
 
-        [JsonPropertyName("rating")]
+        [JsonPropertyName(AnimeFieldNames.Rating)]
         public string CensorRating { get; set; }
 
-        [JsonPropertyName("studios")]
+        [JsonPropertyName(AnimeFieldNames.Studios)]
         public Studio[] Studios { get; set; }
 
-        [JsonPropertyName("pictures")]
+        [JsonPropertyName(AnimeFieldNames.Pictures)]
         public Picture[] Pictures { get; set; }
 
-        [JsonPropertyName("background")]
+        [JsonPropertyName(AnimeFieldNames.Background)]
         public string Background { get; set; }
 
         public override string ToString() => Title;

@@ -1,30 +1,41 @@
-﻿using System.Globalization;
+﻿using System;
 using System.Text.Json.Serialization;
+using MalApi.JsonConverters;
 
 namespace MalApi
 {
-    public class Season
+    public sealed class Season : IEquatable<Season>
     {
         [JsonPropertyName("year")]
         public int Year { get; set; }
 
         [JsonPropertyName("season")]
-        public string SeasonName { get; set; }
+        [JsonConverter(typeof(AnimeSeasonConverter))]
+        public AnimeSeason SeasonName { get; set; }
 
         public override string ToString()
         {
-            TextInfo info = CultureInfo.CurrentCulture.TextInfo;
-            return $"{info.ToTitleCase(SeasonName)} {Year}";
+            return $"{SeasonName} {Year}";
         }
 
-        public static Season Get(string season, int year)
+        public bool Equals(Season other)
         {
-            return new Season { Year = year, SeasonName = season };
+            return SeasonName == other.SeasonName && Year == other.Year;
         }
 
-        public static Season Get(AnimeSeason season, int year)
+        public Season() { }
+
+        public Season(AnimeSeason season, int year)
         {
-            return Get(season.ToString().ToLower(), year);
+            SeasonName = season;
+            Year = year;
         }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Season);
+        }
+
+        public override int GetHashCode() => HashCode.Combine(SeasonName, Year);
     }
 }
