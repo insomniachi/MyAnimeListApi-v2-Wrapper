@@ -1,6 +1,6 @@
 ﻿namespace MalApi;
 
-public enum UserAnimeSort
+public enum UserItemSort
 {
     UserScore,
     LastUpdated,

@@ -29,6 +29,6 @@ internal partial class AnimeEndPoint  : IGetAnimeRequest
         return response.IsSuccessStatusCode;
     }
 
-    public IUpdateRequest UpdateStatus() => this;
+    public IUpdateAnimeRequest UpdateStatus() => this;
     IGetAnimeRequest IGetAnimeRequest.WithFields(params string[] fields) => WithFields(fields);
 }

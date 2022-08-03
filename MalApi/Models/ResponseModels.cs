@@ -31,6 +31,7 @@ public class PagedResult<T>
 }
 
 public class PagedAnime : PagedResult<Anime> { }
+public class PagedManga : PagedResult<Manga> { }
 
 public class Paging
 {

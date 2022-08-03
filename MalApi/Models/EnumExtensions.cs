@@ -28,15 +28,15 @@ public static class EnumExtensions
         };
     }
 
-    public static string GetMalApiString(this UserAnimeSort sort)
+    public static string GetMalApiStringForAnime(this UserItemSort sort)
     {
         return sort switch
         {
-            UserAnimeSort.UserScore => "list_score",
-            UserAnimeSort.LastUpdated => "list_updated_at",
-            UserAnimeSort.Title => "anime_title",
-            UserAnimeSort.StartDate => "anime_start_date",
-            UserAnimeSort.Id => "anime_id ",
+            UserItemSort.UserScore => "list_score",
+            UserItemSort.LastUpdated => "list_updated_at",
+            UserItemSort.Title => "anime_title",
+            UserItemSort.StartDate => "anime_start_date",
+            UserItemSort.Id => "anime_id ",
             _ => string.Empty
         };
     }

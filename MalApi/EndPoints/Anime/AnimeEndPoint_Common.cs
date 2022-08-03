@@ -21,7 +21,7 @@ internal partial class AnimeEndPoint
     public SeasonalAnimeSort SeasonalAnimeSort { get; set; } = SeasonalAnimeSort.NumberOfUsers;
     public string User { get; set; }
     public AnimeStatus Status { get; set; } = AnimeStatus.None;
-    public UserAnimeSort UserAnimeSort { get; set; } = UserAnimeSort.UserScore;
+    public UserItemSort UserAnimeSort { get; set; } = UserItemSort.UserScore;
     public bool? IsRewatching { get; set; }
     public Score? Score { get; set; }
     public int? EpisodesWatched { get; set; }
@@ -114,7 +114,7 @@ internal partial class AnimeEndPoint
         return this;
     }
     
-    private AnimeEndPoint SortBy(UserAnimeSort sort)
+    private AnimeEndPoint SortBy(UserItemSort sort)
     {
         UserAnimeSort = sort;
         return this;

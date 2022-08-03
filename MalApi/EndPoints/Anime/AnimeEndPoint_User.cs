@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
-internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateRequest
+internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeRequest
 {
-    async Task<UserAnimeStatus> IUpdateRequest.Publish()
+    async Task<UserAnimeStatus> IUpdateAnimeRequest.Publish()
     {
         var url = $"https://api.myanimelist.net/v2/anime/{Id}/my_list_status";
         using var httpContent = new FormUrlEncodedContent(GetUpdateParams());
@@ -27,7 +27,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateRequest
         {
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
-            ["sort"] = UserAnimeSort.GetMalApiString(),
+            ["sort"] = UserAnimeSort.GetMalApiStringForAnime(),
         };
 
         if (Status != AnimeStatus.None)
@@ -50,17 +50,17 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateRequest
     IUserAnimeListRequest IUserAnimeListRequest.WithLimit(int limit) => WithLimit(Limit);
     IUserAnimeListRequest IUserAnimeListRequest.WithOffset(int offset) => WithOffset(Offset);
     IUserAnimeListRequest IUserAnimeListRequest.WithStatus(AnimeStatus status) => WithStatus(status);
-    IUserAnimeListRequest IUserAnimeListRequest.SortBy(UserAnimeSort sort) => SortBy(sort);
+    IUserAnimeListRequest IUserAnimeListRequest.SortBy(UserItemSort sort) => SortBy(sort);
 
-    IUpdateRequest IUpdateRequest.WithStatus(AnimeStatus status) => WithStatus(status);
-    IUpdateRequest IUpdateRequest.WithTags(string tags) => WithTags(tags);
-    IUpdateRequest IUpdateRequest.WithPriority(Priority priority) => WithPriority(priority);
-    IUpdateRequest IUpdateRequest.WithRewatchCount(int rewatchCount) => WithRewatchCount(rewatchCount);
-    IUpdateRequest IUpdateRequest.WithRewatchValue(RewatchValue rewatchValue) => WithRewatchValue(rewatchValue);
-    IUpdateRequest IUpdateRequest.WithScore(Score score) => WithScore(score);
-    IUpdateRequest IUpdateRequest.WithIsRewatching(bool rewatching) => WithIsRewatching(rewatching);
-    IUpdateRequest IUpdateRequest.WithComments(string comments) => WithComments(comments);
-    IUpdateRequest IUpdateRequest.WithEpisodesWatched(int episodesWatched) => WithEpisodesWatched(episodesWatched);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithStatus(AnimeStatus status) => WithStatus(status);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithTags(string tags) => WithTags(tags);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithPriority(Priority priority) => WithPriority(priority);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithRewatchCount(int rewatchCount) => WithRewatchCount(rewatchCount);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithRewatchValue(RewatchValue rewatchValue) => WithRewatchValue(rewatchValue);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithScore(Score score) => WithScore(score);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithIsRewatching(bool rewatching) => WithIsRewatching(rewatching);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithComments(string comments) => WithComments(comments);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithEpisodesWatched(int episodesWatched) => WithEpisodesWatched(episodesWatched);
 
     private IDictionary<string, string> GetUpdateParams()
     {

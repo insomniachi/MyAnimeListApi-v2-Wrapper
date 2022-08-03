@@ -13,3 +13,5 @@ public class RankedAnime
 }
 
 public class PagedRankedAnime : PagedResult<RankedAnime> { }
+
+public class PagedRankedManga : PagedResult<RankedManga> { }
