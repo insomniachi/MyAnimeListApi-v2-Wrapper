@@ -18,6 +18,7 @@ public class MalClientWrapper
         var filePath = Path.Combine(Path.GetDirectoryName(typeof(MalClientWrapper).Assembly.Location), FileName);
         var text = File.ReadAllText(filePath);
         OAuthToken = JsonSerializer.Deserialize<OAuthToken>(text);
-        Client = new MalClient(OAuthToken.AccessToken);
+        Client = new MalClient();
+        Client.SetAccessToken(OAuthToken.AccessToken);
     }
 }

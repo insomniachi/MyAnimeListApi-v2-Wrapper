@@ -1,12 +1,11 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum MangaStatus
 {
-    public enum MangaStatus
-    {
-        Reading,
-        Completed,
-        OnHold,
-        PlanToRead,
-        Dropped,
-        None,
-    }
+    Reading,
+    Completed,
+    OnHold,
+    PlanToRead,
+    Dropped,
+    None,
 }

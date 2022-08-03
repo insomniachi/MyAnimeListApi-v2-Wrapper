@@ -1,11 +1,15 @@
-﻿using MalApi.Interfaces;
+﻿using System.Net.Http;
+using MalApi.Interfaces;
 
 namespace MalApi.EndPoints;
 
 internal partial class AnimeEndPoint : IAnimeEndPoint
 {
-    public AnimeEndPoint()
+    private readonly HttpClient _client;
+
+    public AnimeEndPoint(HttpClient client)
     {
+        _client = client;
     }
 
     public IGetSeasonalAnimeListRequest OfSeason(AnimeSeason season, int year)

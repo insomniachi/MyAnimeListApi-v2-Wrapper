@@ -1,18 +1,17 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MalApi
+namespace MalApi;
+
+public class Author
 {
-    public class Author
+    [JsonPropertyName("node")]
+    public Person Person { get; set; }
+
+    [JsonPropertyName("role")]
+    public string Role { get; set; }
+
+    public override string ToString()
     {
-        [JsonPropertyName("node")]
-        public Person Person { get; set; }
-
-        [JsonPropertyName("role")]
-        public string Role { get; set; }
-
-        public override string ToString()
-        {
-            return Person.ToString();
-        }
+        return Person.ToString();
     }
 }

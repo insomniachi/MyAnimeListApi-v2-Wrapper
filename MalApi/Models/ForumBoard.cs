@@ -1,19 +1,18 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MalApi
+namespace MalApi;
+
+public class ForumBoard
 {
-    public class ForumBoard
-    {
-        [JsonPropertyName("id")]
-        public int ID { get; set; }
+    [JsonPropertyName("id")]
+    public int ID { get; set; }
 
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
+    [JsonPropertyName("title")]
+    public string Title { get; set; }
 
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
+    [JsonPropertyName("description")]
+    public string Description { get; set; }
 
-        [JsonPropertyName("subboards")]
-        public ForumSubboard[] Subboards { get; set; }
-    }
+    [JsonPropertyName("subboards")]
+    public ForumSubboard[] Subboards { get; set; }
 }

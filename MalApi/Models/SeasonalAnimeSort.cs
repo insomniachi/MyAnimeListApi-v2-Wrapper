@@ -1,8 +1,7 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum SeasonalAnimeSort
 {
-    public enum SeasonalAnimeSort
-    {
-        Score,
-        NumberOfUsers
-    }
+    Score,
+    NumberOfUsers
 }

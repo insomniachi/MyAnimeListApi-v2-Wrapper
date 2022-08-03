@@ -1,23 +1,22 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum CensorRating
 {
-    public enum CensorRating
-    {
-        // All Ages
-        G,
+    // All Ages
+    G,
 
-        // Children
-        PG,
+    // Children
+    PG,
 
-        // Teens 13 and Olders
-        PG13,
+    // Teens 13 and Olders
+    PG13,
 
-        // Violence & Profanity
-        R,
-        
-        // Profanity & Mild Nudity
-        RPlus,
+    // Violence & Profanity
+    R,
+    
+    // Profanity & Mild Nudity
+    RPlus,
 
-        // Hentai
-        RX
-    }
+    // Hentai
+    RX
 }

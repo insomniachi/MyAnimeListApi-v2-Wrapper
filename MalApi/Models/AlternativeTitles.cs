@@ -1,16 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MalApi
+namespace MalApi;
+
+public class AlternativeTitles
 {
-    public class AlternativeTitles
-    {
-        [JsonPropertyName("synonyms")]
-        public string[] Aliases { get; set; }
+    [JsonPropertyName("synonyms")]
+    public string[] Aliases { get; set; }
 
-        [JsonPropertyName("en")]
-        public string English { get; set; }
+    [JsonPropertyName("en")]
+    public string English { get; set; }
 
-        [JsonPropertyName("ja")]
-        public string Japanese { get; set; }
-    }
+    [JsonPropertyName("ja")]
+    public string Japanese { get; set; }
 }

@@ -1,16 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MalApi
+namespace MalApi;
+
+public class ForumTopicPollOption
 {
-    public class ForumTopicPollOption
-    {
-        [JsonPropertyName("id")]
-        public int ID { get; set; }
+    [JsonPropertyName("id")]
+    public int ID { get; set; }
 
-        [JsonPropertyName("text")]
-        public string Text { get; set; }
+    [JsonPropertyName("text")]
+    public string Text { get; set; }
 
-        [JsonPropertyName("votes")]
-        public int Votes { get; set; }
-    }
+    [JsonPropertyName("votes")]
+    public int Votes { get; set; }
 }

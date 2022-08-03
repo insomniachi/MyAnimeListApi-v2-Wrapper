@@ -1,11 +1,10 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum UserAnimeSort
 {
-    public enum UserAnimeSort
-    {
-        UserScore,
-        LastUpdated,
-        Title,
-        StartDate,
-        Id,
-    }
+    UserScore,
+    LastUpdated,
+    Title,
+    StartDate,
+    Id,
 }

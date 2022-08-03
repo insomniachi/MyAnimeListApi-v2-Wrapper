@@ -1,11 +1,10 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum MangaPublishingStatus
 {
-    public enum MangaPublishingStatus
-    {
-        Finished,
-        CurrentlyPublising,
-        NotYetPublished
-    }
-
-
+    Finished,
+    CurrentlyPublising,
+    NotYetPublished
 }
+
+

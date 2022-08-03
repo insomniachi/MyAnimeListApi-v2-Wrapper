@@ -1,16 +1,15 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum MangaMediaType
 {
-    public enum MangaMediaType
-    {
-        Unknown,
-        Manga,
-        Novel,
-        OneShot,
-        Doujinshi,
-        Manhwa,
-        Manhua,
-        Oel
-    }
-
-
+    Unknown,
+    Manga,
+    Novel,
+    OneShot,
+    Doujinshi,
+    Manhwa,
+    Manhua,
+    Oel
 }
+
+

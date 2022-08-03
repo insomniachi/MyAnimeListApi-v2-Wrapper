@@ -4,30 +4,29 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace MalApi.JsonConverters
+namespace MalApi.JsonConverters;
+
+public class AnimeMediaTypeConverter : JsonConverter<AnimeMediaType>
 {
-    public class AnimeMediaTypeConverter : JsonConverter<AnimeMediaType>
+    public override AnimeMediaType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override AnimeMediaType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {
-            string text = reader.GetString();
+        string text = reader.GetString();
 
-            switch (text)
-            {
-                case "unknown": return AnimeMediaType.Unknown;
-                case "tv": return AnimeMediaType.TV;
-                case "ova": return AnimeMediaType.OVA;
-                case "movie": return AnimeMediaType.Movie;
-                case "special": return AnimeMediaType.Special;
-                case "ona": return AnimeMediaType.ONA;
-                case "music": return AnimeMediaType.Music;
-                default: return AnimeMediaType.Unknown;
-            }
-        }
-
-        public override void Write(Utf8JsonWriter writer, AnimeMediaType value, JsonSerializerOptions options)
+        return text switch
         {
-            writer.WriteStringValue(value.ToString().ToLower());
-        }
+            "unknown" => AnimeMediaType.Unknown,
+            "tv" => AnimeMediaType.TV,
+            "ova" => AnimeMediaType.OVA,
+            "movie" => AnimeMediaType.Movie,
+            "special" => AnimeMediaType.Special,
+            "ona" => AnimeMediaType.ONA,
+            "music" => AnimeMediaType.Music,
+            _ => AnimeMediaType.Unknown,
+        };
+    }
+
+    public override void Write(Utf8JsonWriter writer, AnimeMediaType value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.ToString().ToLower());
     }
 }

@@ -1,18 +1,17 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MalApi
+namespace MalApi;
+
+public class Genre
 {
-    public class Genre
+    [JsonPropertyName("id")]
+    public int ID { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    public override string ToString()
     {
-        [JsonPropertyName("id")]
-        public int ID { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
+        return Name;
     }
 }

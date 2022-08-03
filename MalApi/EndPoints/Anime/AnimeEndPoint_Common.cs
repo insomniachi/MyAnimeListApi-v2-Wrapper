@@ -128,7 +128,7 @@ internal partial class AnimeEndPoint
 
     private async Task<T> Parse<T>(string url)
     {
-        var stream = await Http.Client.GetStreamAsync(url);
+        var stream = await _client.GetStreamAsync(url);
         return await JsonSerializer.DeserializeAsync<T>(stream);
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MalApi.EndPoints;
@@ -8,20 +9,26 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi;
 
-public class MalClient : IMalClient
+public sealed class MalClient : IMalClient
 {
-    public MalClient(string accessToken = "")
-    {
-        SetAccessToken(accessToken);
-    }
+    private readonly HttpClient _client = new();
 
-    public static void SetAccessToken(string accessToken)
+    public void SetAccessToken(string accessToken)
     {
         HttpRequest.AccessToken = accessToken;
-        Http.Client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+        _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
     }
 
-    public IAnimeEndPoint Anime() => new AnimeEndPoint();
+    public void SetClientId(string id)
+    {
+        _client.DefaultRequestHeaders.Add("X-MAL-CLIENT-ID", id);
+    }
+
+    public bool IsAuthenticated => _client.DefaultRequestHeaders.Contains("Authorization");
+
+    public void Dispose() => _client.Dispose();
+
+    public IAnimeEndPoint Anime() => new AnimeEndPoint(_client);
 
     public async Task<MalUser> User()
     {
@@ -30,7 +37,7 @@ public class MalClient : IMalClient
             ["fields"] = "anime_statistics"
         });
 
-        var stream = await Http.Client.GetStreamAsync(url);
+        var stream = await _client.GetStreamAsync(url);
         return await JsonSerializer.DeserializeAsync<MalUser>(stream);
     }
 

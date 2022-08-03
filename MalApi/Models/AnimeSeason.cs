@@ -1,10 +1,9 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum AnimeSeason
 {
-    public enum AnimeSeason
-    {
-        Winter,
-        Summer,
-        Spring,
-        Fall
-    }
+    Winter,
+    Summer,
+    Spring,
+    Fall
 }

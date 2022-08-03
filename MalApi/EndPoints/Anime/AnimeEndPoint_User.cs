@@ -16,7 +16,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateRequest
         using var httpContent = new FormUrlEncodedContent(GetUpdateParams());
         httpContent.Headers.Clear();
         httpContent.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-        var response = await Http.Client.PutAsync(url, httpContent);
+        var response = await _client.PutAsync(url, httpContent);
         var stream = await response.Content.ReadAsStreamAsync();
         return await JsonSerializer.DeserializeAsync<UserAnimeStatus>(stream);
     }

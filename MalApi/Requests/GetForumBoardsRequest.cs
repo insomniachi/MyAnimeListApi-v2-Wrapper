@@ -3,17 +3,16 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace MalApi.Requests
+namespace MalApi.Requests;
+
+public class GetForumBoardsRequest : HttpGetRequest<List<ForumCategory>>
 {
-    public class GetForumBoardsRequest : HttpGetRequest<List<ForumCategory>>
+    public override string BaseUrl => "https://api.myanimelist.net/v2/forum/boards";
+
+    protected override Task<List<ForumCategory>> CreateResponse(string json)
     {
-        public override string BaseUrl => "https://api.myanimelist.net/v2/forum/boards";
+        ForumCategoryRoot root = JsonSerializer.Deserialize<ForumCategoryRoot>(json);
 
-        protected override Task<List<ForumCategory>> CreateResponse(string json)
-        {
-            ForumCategoryRoot root = JsonSerializer.Deserialize<ForumCategoryRoot>(json);
-
-            return Task.FromResult(root.Categories.ToList());
-        }
+        return Task.FromResult(root.Categories.ToList());
     }
 }

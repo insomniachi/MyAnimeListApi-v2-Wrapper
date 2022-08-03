@@ -1,13 +1,12 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum AnimeMediaType
 {
-    public enum AnimeMediaType
-    {
-        Unknown,
-        TV,
-        OVA,
-        Movie,
-        Special,
-        ONA,
-        Music
-    }
+    Unknown,
+    TV,
+    OVA,
+    Movie,
+    Special,
+    ONA,
+    Music
 }

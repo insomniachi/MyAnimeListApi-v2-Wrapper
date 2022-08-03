@@ -1,15 +1,14 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum AnimeRankingType
 {
-    public enum AnimeRankingType
-    {
-        All,
-        Airing,
-        Upcoming,
-        TV,
-        OVA,
-        Movie,
-        Special,
-        ByPopularity,
-        Favorite
-    }
+    All,
+    Airing,
+    Upcoming,
+    TV,
+    OVA,
+    Movie,
+    Special,
+    ByPopularity,
+    Favorite
 }

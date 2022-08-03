@@ -1,14 +1,13 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public enum NsfwLevel
 {
-    public enum NsfwLevel
-    {
-        //safe for work
-        White,
+    //safe for work
+    White,
 
-        //may be not safe for work
-        Gray,
+    //may be not safe for work
+    Gray,
 
-        //not safe for work
-        Black
-    }
+    //not safe for work
+    Black
 }

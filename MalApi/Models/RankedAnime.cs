@@ -1,16 +1,15 @@
-﻿namespace MalApi
+﻿namespace MalApi;
+
+public class RankedAnime
 {
-    public class RankedAnime
+    public Anime Anime { get; set; }
+
+    public Ranking Ranking { get; set; }
+
+    public override string ToString()
     {
-        public Anime Anime { get; set; }
-
-        public Ranking Ranking { get; set; }
-
-        public override string ToString()
-        {
-            return $"({Ranking.CurrentRank}) {Anime}";
-        }
+        return $"({Ranking.CurrentRank}) {Anime}";
     }
-
-    public class PagedRankedAnime : PagedResult<RankedAnime> { }
 }
+
+public class PagedRankedAnime : PagedResult<RankedAnime> { }

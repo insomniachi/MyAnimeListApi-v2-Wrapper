@@ -3,69 +3,68 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace MalApi.Requests
+namespace MalApi.Requests;
+
+public abstract class ListAnimeRequest : HttpGetRequest<List<Anime>>
 {
-    public abstract class ListAnimeRequest : HttpGetRequest<List<Anime>>
+    public int Count { get; set; } = 25;
+
+    protected async override Task<List<Anime>> CreateResponse(string json)
     {
-        public int Count { get; set; } = 25;
+        List<Anime> result = new List<Anime>();
 
-        protected async override Task<List<Anime>> CreateResponse(string json)
+        AnimeListRoot root = JsonSerializer.Deserialize<AnimeListRoot>(json);
+        result.AddRange(root.AnimeList.Select(x => x.Anime));
+
+        if (result.Count < Count)
         {
-            List<Anime> result = new List<Anime>();
-
-            AnimeListRoot root = JsonSerializer.Deserialize<AnimeListRoot>(json);
-            result.AddRange(root.AnimeList.Select(x => x.Anime));
-
-            if (result.Count < Count)
+            while (string.IsNullOrEmpty(root.Paging.Next) == false)
             {
-                while (string.IsNullOrEmpty(root.Paging.Next) == false)
+                var nextResponse = await httpClient.GetAsync(root.Paging.Next);
+                string nextString = await nextResponse.Content.ReadAsStringAsync();
+
+                root = JsonSerializer.Deserialize<AnimeListRoot>(nextString);
+                result.AddRange(root.AnimeList.Select(x => x.Anime));
+
+                if (result.Count > Count)
                 {
-                    var nextResponse = await httpClient.GetAsync(root.Paging.Next);
-                    string nextString = await nextResponse.Content.ReadAsStringAsync();
-
-                    root = JsonSerializer.Deserialize<AnimeListRoot>(nextString);
-                    result.AddRange(root.AnimeList.Select(x => x.Anime));
-
-                    if (result.Count > Count)
-                    {
-                        break;
-                    }
-                } 
-            }
-            
-            return result.Take(Count).ToList();
+                    break;
+                }
+            } 
         }
+        
+        return result.Take(Count).ToList();
     }
+}
 
-    public abstract class ListMangaRequest : HttpGetRequest<List<Manga>>
+public abstract class ListMangaRequest : HttpGetRequest<List<Manga>>
+{
+    public int Count { get; set; } = 25;
+
+    protected async override Task<List<Manga>> CreateResponse(string json)
     {
-        public int Count { get; set; } = 25;
+        List<Manga> result = new List<Manga>();
 
-        protected async override Task<List<Manga>> CreateResponse(string json)
+        MangaListRoot root = JsonSerializer.Deserialize<MangaListRoot>(json);
+        result.AddRange(root.MangaList.Select(x => x.Manga));
+
+        if (result.Count < Count)
         {
-            List<Manga> result = new List<Manga>();
-
-            MangaListRoot root = JsonSerializer.Deserialize<MangaListRoot>(json);
-            result.AddRange(root.MangaList.Select(x => x.Manga));
-
-            if (result.Count < Count)
+            while (string.IsNullOrEmpty(root.Paging.Next) == false)
             {
-                while (string.IsNullOrEmpty(root.Paging.Next) == false)
+                var nextResponse = await httpClient.GetAsync(root.Paging.Next);
+                string nextString = await nextResponse.Content.ReadAsStringAsync();
+
+                root = JsonSerializer.Deserialize<MangaListRoot>(nextString);
+                result.AddRange(root.MangaList.Select(x => x.Manga));
+
+                if (result.Count > Count)
                 {
-                    var nextResponse = await httpClient.GetAsync(root.Paging.Next);
-                    string nextString = await nextResponse.Content.ReadAsStringAsync();
-
-                    root = JsonSerializer.Deserialize<MangaListRoot>(nextString);
-                    result.AddRange(root.MangaList.Select(x => x.Manga));
-
-                    if (result.Count > Count)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
-
-            return result.Take(Count).ToList();
         }
+
+        return result.Take(Count).ToList();
     }
 }

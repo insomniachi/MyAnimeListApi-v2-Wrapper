@@ -1,25 +1,24 @@
 ﻿using System.ComponentModel;
 
-namespace MalApi
+namespace MalApi;
+
+public enum AnimeStatus
 {
-    public enum AnimeStatus
-    {
-        [Description("Watching")]
-        Watching,
+    [Description("Watching")]
+    Watching,
 
-        [Description("Completed")]
-        Completed,
+    [Description("Completed")]
+    Completed,
 
-        [Description("On-Hold")]
-        OnHold,
+    [Description("On-Hold")]
+    OnHold,
 
-        [Description("Plan to Watch")]
-        PlanToWatch,
+    [Description("Plan to Watch")]
+    PlanToWatch,
 
-        [Description("Dropped")]
-        Dropped,
+    [Description("Dropped")]
+    Dropped,
 
-        [Description("Selected status")]
-        None,
-    }
+    [Description("Selected status")]
+    None,
 }
