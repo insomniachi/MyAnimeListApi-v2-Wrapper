@@ -12,6 +12,11 @@ namespace MalApi
     {
         public MalClient(string accessToken)
         {
+            SetAccessToken(accessToken);
+        }
+
+        public static void SetAccessToken(string accessToken)
+        {
             HttpRequest.AccessToken = accessToken;
             Http.Client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
         }
