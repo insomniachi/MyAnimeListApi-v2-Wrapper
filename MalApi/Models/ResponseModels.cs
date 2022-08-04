@@ -32,6 +32,7 @@ public class PagedResult<T>
 
 public class PagedAnime : PagedResult<Anime> { }
 public class PagedManga : PagedResult<Manga> { }
+public class PagedForumTopicDetails : PagedResult<ForumTopicDetails> { }
 
 public class Paging
 {
@@ -48,7 +49,7 @@ internal class ForumCategoryRoot
     public ForumCategory[] Categories { get; set; }
 }
 
-internal class ForumTopicDataRoot
+public class PagedForumTopicData
 {
     [JsonPropertyName("data")]
     public ForumTopicData TopicData { get; set; }

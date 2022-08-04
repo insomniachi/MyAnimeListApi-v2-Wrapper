@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System;
 using System.Threading.Tasks;
-using MalApi.Requests;
 
 namespace MalApi.Interfaces;
 

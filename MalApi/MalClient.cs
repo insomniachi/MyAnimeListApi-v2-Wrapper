@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MalApi.EndPoints;
 using MalApi.Interfaces;
-using MalApi.Requests;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi;
@@ -15,8 +15,8 @@ public sealed class MalClient : IMalClient
 
     public void SetAccessToken(string accessToken)
     {
-        HttpRequest.AccessToken = accessToken;
-        _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+        IsAuthenticated = true;
     }
 
     public void SetClientId(string id)
@@ -24,12 +24,13 @@ public sealed class MalClient : IMalClient
         _client.DefaultRequestHeaders.Add("X-MAL-CLIENT-ID", id);
     }
 
-    public bool IsAuthenticated => _client.DefaultRequestHeaders.Contains("Authorization");
+    public bool IsAuthenticated { get; set; }
 
     public void Dispose() => _client.Dispose();
 
     public IAnimeEndPoint Anime() => new AnimeEndPoint(_client);
     public IMangaEndPoint Manga() => new MangaEndPoint(_client);
+    public IForumEndPoint Forum() => new ForumEndPoint(_client);
 
     public async Task<MalUser> User()
     {
@@ -40,27 +41,5 @@ public sealed class MalClient : IMalClient
 
         var stream = await _client.GetStreamAsync(url);
         return await JsonSerializer.DeserializeAsync<MalUser>(stream);
-    }
-
-
-    public async Task<List<ForumCategory>> GetForumBoardsAsync()
-    {
-        var request = new GetForumBoardsRequest();
-
-        return await request.GetAsync();
-    }
-
-    public async Task<ForumTopicData> GetForumTopicDetailsAsync(int id)
-    {
-        var request = new GetForumTopicDetailRequest(id);
-
-        return await request.GetAsync();
-    }
-
-    public async Task<List<ForumTopicDetails>> GetForumTopicsAsync(string querry, int boardId =1, int subBoardId = -1 , string topicUser = "", string user = "")
-    {
-        var request = new GetForumTopicsRequest(querry, boardId, subBoardId, topicUser, user);
-
-        return await request.GetAsync();
     }
 }
