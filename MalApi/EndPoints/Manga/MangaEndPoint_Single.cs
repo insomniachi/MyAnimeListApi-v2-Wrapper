@@ -1,19 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
 internal partial class MangaEndPoint : IGetMangaRequest
 {
-    public Task<Manga> Find()
+    public async Task<Manga> Find()
     {
-        throw new NotImplementedException();
+        var @params = new Dictionary<string, string>();
+
+        if (Fields.Any())
+        {
+            @params.Add("fields", string.Join(",", Fields));
+        }
+
+        var url = QueryHelpers.AddQueryString($"https://api.myanimelist.net/v2/manga/{Id}", @params);
+
+        return await ParseManga(url);
     }
 
-    public Task<bool> RemoveFromList()
+    public async Task<bool> RemoveFromList()
     {
-        throw new NotImplementedException();
+        var url = $"https://api.myanimelist.net/v2/manga/{Id}/my_list_status";
+        var response = await _client.DeleteAsync(url);
+        return response.IsSuccessStatusCode;
     }
 
     public IUpdateMangaRequest UpdateStatus() => this;

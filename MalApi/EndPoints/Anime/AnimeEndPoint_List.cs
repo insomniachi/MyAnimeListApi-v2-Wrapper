@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
 using Microsoft.AspNetCore.WebUtilities;

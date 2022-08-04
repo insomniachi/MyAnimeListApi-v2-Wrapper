@@ -35,7 +35,7 @@ public class UserAnimeStatus
 
     [JsonPropertyName("rewatch_value")]
     [JsonConverter(typeof(RewatchValueConverter))]
-    public RewatchValue RewatchValue { get; set; }
+    public Value RewatchValue { get; set; }
 
     [JsonPropertyName("tags")]
     public string[] Tags { get; set; }

@@ -56,7 +56,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
     IUpdateAnimeRequest IUpdateAnimeRequest.WithTags(string tags) => WithTags(tags);
     IUpdateAnimeRequest IUpdateAnimeRequest.WithPriority(Priority priority) => WithPriority(priority);
     IUpdateAnimeRequest IUpdateAnimeRequest.WithRewatchCount(int rewatchCount) => WithRewatchCount(rewatchCount);
-    IUpdateAnimeRequest IUpdateAnimeRequest.WithRewatchValue(RewatchValue rewatchValue) => WithRewatchValue(rewatchValue);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithRewatchValue(Value rewatchValue) => WithRewatchValue(rewatchValue);
     IUpdateAnimeRequest IUpdateAnimeRequest.WithScore(Score score) => WithScore(score);
     IUpdateAnimeRequest IUpdateAnimeRequest.WithIsRewatching(bool rewatching) => WithIsRewatching(rewatching);
     IUpdateAnimeRequest IUpdateAnimeRequest.WithComments(string comments) => WithComments(comments);

@@ -6,6 +6,7 @@ namespace MalApi.Interfaces;
 public interface IMalClient : IDisposable
 {
     IAnimeEndPoint Anime();
+    IMangaEndPoint Manga();
     Task<MalUser> User();
     void SetAccessToken(string token);
     void SetClientId(string id);

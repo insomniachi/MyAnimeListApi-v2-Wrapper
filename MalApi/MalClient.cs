@@ -29,6 +29,7 @@ public sealed class MalClient : IMalClient
     public void Dispose() => _client.Dispose();
 
     public IAnimeEndPoint Anime() => new AnimeEndPoint(_client);
+    public IMangaEndPoint Manga() => new MangaEndPoint(_client);
 
     public async Task<MalUser> User()
     {
@@ -59,42 +60,6 @@ public sealed class MalClient : IMalClient
     public async Task<List<ForumTopicDetails>> GetForumTopicsAsync(string querry, int boardId =1, int subBoardId = -1 , string topicUser = "", string user = "")
     {
         var request = new GetForumTopicsRequest(querry, boardId, subBoardId, topicUser, user);
-
-        return await request.GetAsync();
-    }
-
-    public async Task<Manga> GetMangaAsync(int id)
-    {
-        var request = new GetMangaRequest(id);
-
-        return await request.GetAsync();
-    }
-
-    public async Task<List<RankedManga>> GetRankedMangaAsync(MangaRankingType type = MangaRankingType.All, int count = 25)
-    {
-        var request = new GetRankedMangaRequest(type, count);
-
-        return await request.GetAsync();
-    }
-
-    public async Task<UserMangaStatus> UpdateUserMangaStatusAsync(int id, MangaStatus status = MangaStatus.None, bool? isReReading = null, int score = -1, int volumesRead = -1,
-                    int chaptersRead = -1, int priority = -1, int reReadCount = -1, int reReadValue = -1, string tags = "", string comments ="")
-    {
-        var request = new UpdateMangaUserStatusRequest(id, status, isReReading, score, volumesRead, chaptersRead, priority, reReadCount, reReadValue, tags, comments);
-
-        return await request.PutAsync();
-    }
-
-    public async Task<bool> DeleteUserMangaAsync(int id)
-    {
-        var request = new DeleteUserMangaRequest(id);
-
-        return await request.DeleteAsync();
-    }
-
-    public async Task<List<Manga>> GetUserMangaAsync(MangaStatus status = MangaStatus.None)
-    {
-        var request = new GetUserMangaListRequest(status);
 
         return await request.GetAsync();
     }

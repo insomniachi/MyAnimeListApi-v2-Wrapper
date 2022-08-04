@@ -41,6 +41,19 @@ public static class EnumExtensions
         };
     }
 
+    public static string GetMalApiStringForManga(this UserItemSort sort)
+    {
+        return sort switch
+        {
+            UserItemSort.UserScore => "list_score",
+            UserItemSort.LastUpdated => "list_updated_at",
+            UserItemSort.Title => "manga_title",
+            UserItemSort.StartDate => "manga_start_date",
+            UserItemSort.Id => "manga_id ",
+            _ => string.Empty
+        };
+    }
+
     public static string GetMalApiString(this SeasonalAnimeSort sort)
     {
         return sort switch

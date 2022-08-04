@@ -10,7 +10,7 @@ public interface IUpdateAnimeRequest
     IUpdateAnimeRequest WithEpisodesWatched(int episodesWatched);
     IUpdateAnimeRequest WithPriority(Priority priority);
     IUpdateAnimeRequest WithRewatchCount(int rewatchCount);
-    IUpdateAnimeRequest WithRewatchValue(RewatchValue rewatchValue);
+    IUpdateAnimeRequest WithRewatchValue(Value rewatchValue);
     IUpdateAnimeRequest WithTags(string tags);
     IUpdateAnimeRequest WithComments(string comments);
     Task<UserAnimeStatus> Publish();

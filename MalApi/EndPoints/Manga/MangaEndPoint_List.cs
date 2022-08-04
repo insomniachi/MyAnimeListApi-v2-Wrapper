@@ -1,13 +1,30 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using MalApi.Interfaces;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
 internal partial class MangaEndPoint : IGetMangaListRequest
 {
-    Task<PagedManga> IGetMangaListRequest.Find()
+    async Task<PagedManga> IGetMangaListRequest.Find()
     {
-        throw new System.NotImplementedException();
+        var @params = new Dictionary<string, string>
+        {
+            ["q"] = Name,
+            ["limit"] = Limit.ToString(),
+            ["offset"] = Offset.ToString(),
+        };
+
+        if (Fields.Any())
+        {
+            @params.Add("fields", string.Join(",", Fields));
+        }
+
+        var url = QueryHelpers.AddQueryString($"https://api.myanimelist.net/v2/manga", @params);
+
+        return await ParsePagedManga(url);
     }
 
     IGetMangaListRequest IGetMangaListRequest.WithFields(params string[] fields) => WithFields(fields);

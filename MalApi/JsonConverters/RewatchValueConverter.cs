@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace MalApi.JsonConverters;
 
-public class RewatchValueConverter : JsonConverter<RewatchValue>
+public class RewatchValueConverter : JsonConverter<Value>
 {
-    public override RewatchValue Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override Value Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var score = reader.GetInt32();
-        return (RewatchValue)score;
+        return (Value)score;
     }
 
-    public override void Write(Utf8JsonWriter writer, RewatchValue value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, Value value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(((int)value).ToString());
     }

@@ -27,7 +27,7 @@ internal partial class AnimeEndPoint
     public int? EpisodesWatched { get; set; }
     public Priority? Priority { get; set; }
     public int? RewatchCount { get; set; }
-    public RewatchValue? RewatchValue { get; set; }
+    public Value? RewatchValue { get; set; }
     public string Tags { get; set; }
     public string Comments { get; set; }
 
@@ -96,7 +96,7 @@ internal partial class AnimeEndPoint
         return this;
     }
 
-    private AnimeEndPoint WithRewatchValue(RewatchValue rewatchValue)
+    private AnimeEndPoint WithRewatchValue(Value rewatchValue)
     {
         RewatchValue = rewatchValue;
         return this;

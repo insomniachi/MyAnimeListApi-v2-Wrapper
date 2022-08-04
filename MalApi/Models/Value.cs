@@ -2,7 +2,7 @@
 
 namespace MalApi;
 
-public enum RewatchValue
+public enum Value
 {
     [Description("Very Low")]
     VeryLow = 0,
