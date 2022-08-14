@@ -12,4 +12,5 @@ public interface IMalClient : IDisposable
     void SetAccessToken(string token);
     void SetClientId(string id);
     bool IsAuthenticated { get; }
+    Task<PagedAnime> GetNextAnimePage(PagedAnime pagedData);
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -41,5 +42,17 @@ public sealed class MalClient : IMalClient
 
         var stream = await _client.GetStreamAsync(url);
         return await JsonSerializer.DeserializeAsync<MalUser>(stream);
+    }
+
+    public async Task<PagedAnime> GetNextAnimePage(PagedAnime pagedData)
+    {
+        var stream = await _client.GetStreamAsync(pagedData.Paging.Next);
+        var root = await JsonSerializer.DeserializeAsync<AnimeListRoot>(stream);
+     
+        return new PagedAnime
+        {
+            Paging = root.Paging,
+            Data = root.AnimeList.Select(x => x.Anime).ToList()
+        };
     }
 }

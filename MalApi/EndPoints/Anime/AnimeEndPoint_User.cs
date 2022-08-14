@@ -47,8 +47,8 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
 
 
     IUserAnimeListRequest IUserAnimeListRequest.WithFields(params string[] fields) => WithFields(fields);
-    IUserAnimeListRequest IUserAnimeListRequest.WithLimit(int limit) => WithLimit(Limit);
-    IUserAnimeListRequest IUserAnimeListRequest.WithOffset(int offset) => WithOffset(Offset);
+    IUserAnimeListRequest IUserAnimeListRequest.WithLimit(int limit) => WithLimit(limit);
+    IUserAnimeListRequest IUserAnimeListRequest.WithOffset(int offset) => WithOffset(offset);
     IUserAnimeListRequest IUserAnimeListRequest.WithStatus(AnimeStatus status) => WithStatus(status);
     IUserAnimeListRequest IUserAnimeListRequest.SortBy(UserItemSort sort) => SortBy(sort);
 
