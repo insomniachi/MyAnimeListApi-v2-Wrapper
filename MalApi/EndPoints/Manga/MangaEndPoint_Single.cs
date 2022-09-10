@@ -11,7 +11,10 @@ internal partial class MangaEndPoint : IGetMangaRequest
 {
     public async Task<Manga> Find()
     {
-        var @params = new Dictionary<string, string>();
+        var @params = new Dictionary<string, string>
+        {
+            ["nsfw"] = ShowNsfw.ToString()
+        };
 
         if (Fields.Any())
         {

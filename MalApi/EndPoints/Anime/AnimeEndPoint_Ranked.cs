@@ -15,6 +15,7 @@ internal partial class AnimeEndPoint : IGetRankedAnimeListRequest
             ["ranking_type"] = RankingType.ToString().ToLower(),
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
+            ["nsfw"] = ShowNsfw.ToString()
         };
 
         if (Fields.Any())
@@ -27,6 +28,7 @@ internal partial class AnimeEndPoint : IGetRankedAnimeListRequest
         return await ParsePagedRankedAnime(url);
     }
 
+    IGetRankedAnimeListRequest IGetRankedAnimeListRequest.IncludeNsfw() => IncludeNsfw();
     IGetRankedAnimeListRequest IGetRankedAnimeListRequest.WithFields(params string[] fields) => WithFields(fields);
     IGetRankedAnimeListRequest IGetRankedAnimeListRequest.WithLimit(int limit) => WithLimit(limit);
     IGetRankedAnimeListRequest IGetRankedAnimeListRequest.WithOffset(int offset) => WithOffset(offset);

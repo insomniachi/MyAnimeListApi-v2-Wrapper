@@ -14,6 +14,7 @@ internal partial class AnimeEndPoint : IGetSuggestedAnimeListRequest
         {
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
+            ["nsfw"] = ShowNsfw.ToString()
         };
 
         if (Fields.Any())
@@ -26,6 +27,7 @@ internal partial class AnimeEndPoint : IGetSuggestedAnimeListRequest
         return await ParsePagedAnime(url);
     }
 
+    IGetSuggestedAnimeListRequest IGetSuggestedAnimeListRequest.IncludeNsfw() => IncludeNsfw();
     IGetSuggestedAnimeListRequest IGetSuggestedAnimeListRequest.WithFields(params string[] fields) => WithFields(fields);
     IGetSuggestedAnimeListRequest IGetSuggestedAnimeListRequest.WithLimit(int limit) => WithLimit(limit);
     IGetSuggestedAnimeListRequest IGetSuggestedAnimeListRequest.WithOffset(int offset) => WithOffset(offset);

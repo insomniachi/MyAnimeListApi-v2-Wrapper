@@ -28,6 +28,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
             ["sort"] = UserAnimeSort.GetMalApiStringForAnime(),
+            ["nsfw"] = ShowNsfw.ToString()
         };
 
         if (Status != AnimeStatus.None)
@@ -51,6 +52,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
     IUserAnimeListRequest IUserAnimeListRequest.WithOffset(int offset) => WithOffset(offset);
     IUserAnimeListRequest IUserAnimeListRequest.WithStatus(AnimeStatus status) => WithStatus(status);
     IUserAnimeListRequest IUserAnimeListRequest.SortBy(UserItemSort sort) => SortBy(sort);
+    IUserAnimeListRequest IUserAnimeListRequest.IncludeNsfw() => IncludeNsfw();
 
     IUpdateAnimeRequest IUpdateAnimeRequest.WithStatus(AnimeStatus status) => WithStatus(status);
     IUpdateAnimeRequest IUpdateAnimeRequest.WithTags(string tags) => WithTags(tags);

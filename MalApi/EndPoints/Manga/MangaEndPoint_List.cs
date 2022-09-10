@@ -15,6 +15,7 @@ internal partial class MangaEndPoint : IGetMangaListRequest
             ["q"] = Name,
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
+            ["nsfw"] = ShowNsfw.ToString()
         };
 
         if (Fields.Any())
@@ -26,6 +27,8 @@ internal partial class MangaEndPoint : IGetMangaListRequest
 
         return await ParsePagedManga(url);
     }
+
+    IGetMangaListRequest IGetMangaListRequest.IncludeNsfw() => IncludeNsfw();
 
     IGetMangaListRequest IGetMangaListRequest.WithFields(params string[] fields) => WithFields(fields);
 

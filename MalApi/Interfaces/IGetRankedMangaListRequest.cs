@@ -9,6 +9,7 @@ public interface IGetRankedMangaListRequest
     IGetRankedMangaListRequest WithLimit(int limits);
     IGetRankedMangaListRequest WithOffset(int offset);
     IGetRankedMangaListRequest WithFields(params string[] fields);
+    IGetRankedMangaListRequest IncludeNsfw();
     Task<PagedRankedManga> Find();
 
     IGetRankedMangaListRequest WithField<T>(Expression<Func<Manga, T>> propExpr)

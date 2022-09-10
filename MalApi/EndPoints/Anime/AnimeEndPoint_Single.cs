@@ -10,9 +10,12 @@ internal partial class AnimeEndPoint  : IGetAnimeRequest
 {
     public async Task<Anime> Find()
     {
-        var @params = new Dictionary<string, string>();
+        var @params = new Dictionary<string, string>
+        {
+            ["nsfw"] = ShowNsfw.ToString()
+        };
 
-        if(Fields.Any())
+        if (Fields.Any())
         {
             @params.Add("fields", string.Join(",", Fields));
         }

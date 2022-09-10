@@ -35,6 +35,7 @@ internal partial class MangaEndPoint
     public bool? IsRereading { get; set; }
     public string Tags { get; set; }
     public string Comments { get; set; }
+    public bool ShowNsfw { get; set; }
 
     private MangaEndPoint WithTags(string tags)
     {
@@ -128,6 +129,12 @@ internal partial class MangaEndPoint
     private MangaEndPoint SortBy(UserItemSort sort)
     {
         UserItemSort = sort;
+        return this;
+    }
+
+    private MangaEndPoint IncludeNsfw()
+    {
+        ShowNsfw = true;
         return this;
     }
 

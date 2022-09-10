@@ -11,6 +11,7 @@ public interface IUserAnimeListRequest
     IUserAnimeListRequest WithLimit(int limit);
     IUserAnimeListRequest SortBy(UserItemSort sort);
     IUserAnimeListRequest WithStatus(AnimeStatus status);
+    IUserAnimeListRequest IncludeNsfw();
     Task<PagedAnime> Find();
 
     IUserAnimeListRequest WithField<T>(Expression<Func<Anime, T>> propExpr)

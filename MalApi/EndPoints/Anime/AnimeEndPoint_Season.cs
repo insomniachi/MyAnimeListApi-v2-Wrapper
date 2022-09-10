@@ -15,6 +15,7 @@ internal partial class AnimeEndPoint : IGetSeasonalAnimeListRequest
             ["sort"] = SeasonalAnimeSort.GetMalApiString(),
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
+            ["nsfw"] = ShowNsfw.ToString()
         };
 
         if (Fields.Any())
@@ -31,4 +32,5 @@ internal partial class AnimeEndPoint : IGetSeasonalAnimeListRequest
     IGetSeasonalAnimeListRequest IGetSeasonalAnimeListRequest.WithLimit(int limit) => WithLimit(limit);
     IGetSeasonalAnimeListRequest IGetSeasonalAnimeListRequest.WithOffset(int offset) => WithOffset(offset);
     IGetSeasonalAnimeListRequest IGetSeasonalAnimeListRequest.SortBy(SeasonalAnimeSort sort) => SortBy(sort);
+    IGetSuggestedAnimeListRequest IGetSeasonalAnimeListRequest.IncludeNsfw() => IncludeNsfw();
 }

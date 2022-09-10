@@ -17,6 +17,7 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
             ["sort"] = UserItemSort.GetMalApiStringForManga(),
+            ["nsfw"] = ShowNsfw.ToString()
         };
 
         if (Status != MangaStatus.None)
@@ -50,6 +51,7 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
     IUserMangaListRequest IUserMangaListRequest.WithLimit(int limit) => WithLimit(limit);
     IUserMangaListRequest IUserMangaListRequest.WithOffset(int offset) => WithOffset(offset);
     IUserMangaListRequest IUserMangaListRequest.SortBy(UserItemSort sort) => SortBy(sort);
+    IUserMangaListRequest IUserMangaListRequest.IncludeNsfw() => IncludeNsfw();
 
     IUpdateMangaRequest IUpdateMangaRequest.WithStatus(MangaStatus status) => WithStatus(status);
     IUpdateMangaRequest IUpdateMangaRequest.WithIsRereading(bool isRereading) => WithIsRereading(isRereading);

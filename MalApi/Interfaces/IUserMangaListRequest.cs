@@ -11,6 +11,7 @@ public interface IUserMangaListRequest
     IUserMangaListRequest WithLimit(int limit);
     IUserMangaListRequest SortBy(UserItemSort sort);
     IUserMangaListRequest WithStatus(MangaStatus status);
+    IUserMangaListRequest IncludeNsfw();
     Task<PagedManga> Find();
 
     IUserMangaListRequest WithField<T>(Expression<Func<Manga, T>> propExpr)

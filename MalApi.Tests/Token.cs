@@ -19,6 +19,6 @@ public class MalClientWrapper
         var text = File.ReadAllText(filePath);
         OAuthToken = JsonSerializer.Deserialize<OAuthToken>(text);
         Client = new MalClient();
-        Client.SetAccessToken(OAuthToken.AccessToken);
+        //Client.SetAccessToken(OAuthToken.AccessToken);
     }
 }

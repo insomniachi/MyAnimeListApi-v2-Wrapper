@@ -9,6 +9,7 @@ public interface IGetMangaListRequest
     IGetMangaListRequest WithLimit(int limit);
     IGetMangaListRequest WithFields(params string[] fields);
     IGetMangaListRequest WithOffset(int offset);
+    IGetMangaListRequest IncludeNsfw();
     Task<PagedManga> Find();
 
     IGetMangaListRequest WithField<T>(Expression<Func<Manga, T>> propExpr)

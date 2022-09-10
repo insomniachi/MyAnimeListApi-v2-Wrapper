@@ -15,6 +15,7 @@ internal partial class MangaEndPoint : IGetRankedMangaListRequest
             ["ranking_type"] = RankingType.ToString().ToLower(),
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
+            ["nsfw"] = ShowNsfw.ToString()
         };
 
         if (Fields.Any())
@@ -26,6 +27,8 @@ internal partial class MangaEndPoint : IGetRankedMangaListRequest
 
         return await ParsePagedRankedManga(url);
     }
+
+    IGetRankedMangaListRequest IGetRankedMangaListRequest.IncludeNsfw() => IncludeNsfw();
 
     IGetRankedMangaListRequest IGetRankedMangaListRequest.WithFields(params string[] fields) => WithFields(fields);
 

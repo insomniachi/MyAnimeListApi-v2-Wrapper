@@ -30,6 +30,7 @@ internal partial class AnimeEndPoint
     public Value? RewatchValue { get; set; }
     public string Tags { get; set; }
     public string Comments { get; set; }
+    public bool ShowNsfw { get; set; }
 
     private AnimeEndPoint WithFields(params string[] fields)
     {
@@ -123,6 +124,12 @@ internal partial class AnimeEndPoint
     public IGetSeasonalAnimeListRequest SortBy(SeasonalAnimeSort sort)
     {
         SeasonalAnimeSort = sort;
+        return this;
+    }
+
+    private AnimeEndPoint IncludeNsfw()
+    {
+        ShowNsfw = true;
         return this;
     }
 
