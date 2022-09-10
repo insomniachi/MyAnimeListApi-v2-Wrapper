@@ -10,7 +10,7 @@ public interface IGetSeasonalAnimeListRequest
     IGetSeasonalAnimeListRequest WithOffset(int offset);
     IGetSeasonalAnimeListRequest WithFields(params string[] fields);
     IGetSeasonalAnimeListRequest SortBy(SeasonalAnimeSort sort);
-    IGetSuggestedAnimeListRequest IncludeNsfw();
+    IGetSeasonalAnimeListRequest IncludeNsfw();
     Task<PagedAnime> Find();
 
     IGetSeasonalAnimeListRequest WithField<T>(Expression<Func<Anime, T>> propExpr)

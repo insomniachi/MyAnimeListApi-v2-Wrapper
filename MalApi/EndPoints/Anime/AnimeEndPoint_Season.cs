@@ -32,5 +32,5 @@ internal partial class AnimeEndPoint : IGetSeasonalAnimeListRequest
     IGetSeasonalAnimeListRequest IGetSeasonalAnimeListRequest.WithLimit(int limit) => WithLimit(limit);
     IGetSeasonalAnimeListRequest IGetSeasonalAnimeListRequest.WithOffset(int offset) => WithOffset(offset);
     IGetSeasonalAnimeListRequest IGetSeasonalAnimeListRequest.SortBy(SeasonalAnimeSort sort) => SortBy(sort);
-    IGetSuggestedAnimeListRequest IGetSeasonalAnimeListRequest.IncludeNsfw() => IncludeNsfw();
+    IGetSeasonalAnimeListRequest IGetSeasonalAnimeListRequest.IncludeNsfw() => IncludeNsfw();
 }
