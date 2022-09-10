@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MalApi.Tests;
+﻿namespace MalApi.Tests;
 
 public class MalClientTests
 {
