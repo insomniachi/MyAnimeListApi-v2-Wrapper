@@ -38,7 +38,14 @@ internal partial class AnimeEndPoint
         {
             if (!Fields.Contains(item))
             {
-                Fields.Add(item);
+                if(item == AnimeFieldNames.UserStatus && User != "@me")
+                {
+                    Fields.Add(AnimeFieldNames.ListStatus);
+                }
+                else
+                {
+                    Fields.Add(item);
+                }
             }
         }
         return this;
@@ -142,6 +149,11 @@ internal partial class AnimeEndPoint
     private async Task<PagedAnime> ParsePagedAnime(string url)
     {
         var root = await Parse<AnimeListRoot>(url);
+
+        foreach (var item in root.AnimeList.Where(x => x.Status is not null))
+        {
+            item.Anime.UserStatus = item.Status;
+        }
 
         return new PagedAnime
         {

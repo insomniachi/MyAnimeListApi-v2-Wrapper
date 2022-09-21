@@ -8,6 +8,9 @@ internal class AnimeRoot
     [JsonPropertyName("node")]
     public Anime Anime { get; set; }
 
+    [JsonPropertyName("list_status")]
+    public UserAnimeStatus Status { get; set; }
+
     [JsonPropertyName("ranking")]
     public Ranking Ranking { get; set; }
 }
@@ -80,6 +83,9 @@ internal class MangaRoot
 {
     [JsonPropertyName("node")]
     public Manga Manga { get; set; }
+
+    [JsonPropertyName("list_status")]
+    public UserMangaStatus Status { get; set; }
 
     [JsonPropertyName("ranking")]
     public Ranking Ranking { get; set; }

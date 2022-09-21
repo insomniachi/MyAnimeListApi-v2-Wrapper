@@ -65,7 +65,7 @@ public class Anime
     [JsonPropertyName(AnimeFieldNames.UserStatus)]
     public UserAnimeStatus UserStatus { get; set; }
 
-    [JsonPropertyName(AnimeFieldNames.TotalEpisdoes)]
+    [JsonPropertyName(AnimeFieldNames.TotalEpisodes)]
     public int? TotalEpisodes { get; set; }
 
     [JsonPropertyName(AnimeFieldNames.StartSeason)]

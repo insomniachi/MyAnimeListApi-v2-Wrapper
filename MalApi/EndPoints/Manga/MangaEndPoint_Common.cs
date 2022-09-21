@@ -97,7 +97,14 @@ internal partial class MangaEndPoint
         {
             if (!Fields.Contains(item))
             {
-                Fields.Add(item);
+                if (item == "my_list_status" && User != "@me")
+                {
+                    Fields.Add("list_status");
+                }
+                else
+                {
+                    Fields.Add(item);
+                }
             }
         }
         return this;
@@ -148,6 +155,11 @@ internal partial class MangaEndPoint
     private async Task<PagedManga> ParsePagedManga(string url)
     {
         var root = await Parse<MangaListRoot>(url);
+
+        foreach (var item in root.MangaList.Where(x => x.Status is not null))
+        {
+            item.Manga.UserStatus = item.Status;
+        }
 
         return new PagedManga
         {

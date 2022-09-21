@@ -6,6 +6,7 @@ public class AnimeFieldNames
     public const string Title = "title";
     public const string MainPicture = "main_picture";
     public const string UserStatus = "my_list_status";
+    public const string ListStatus = "list_status";
     public const string AlternativeTitles = "alternative_titles";
     public const string StartDate = "start_date";
     public const string EndDate = "end_date";
@@ -21,7 +22,7 @@ public class AnimeFieldNames
     public const string MediaType = "media_type";
     public const string Status = "status";
     public const string Genres = "genres";
-    public const string TotalEpisdoes = "num_episodes";
+    public const string TotalEpisodes = "num_episodes";
     public const string StartSeason = "start_season";
     public const string Broadcast = "broadcast";
     public const string Source = "source";
