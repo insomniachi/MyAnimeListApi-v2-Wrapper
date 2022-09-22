@@ -35,3 +35,18 @@ public class AiringStatusConverter : JsonConverter<AiringStatus>
         }
     }
 }
+
+public class StringToIntConverter : JsonConverter<int>
+{
+    public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        string text = reader.GetString();
+
+        return int.TryParse(text, out int value) ? value : 0;
+    }
+
+    public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.ToString());
+    }
+}

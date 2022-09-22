@@ -93,5 +93,17 @@ public class Anime
     [JsonPropertyName(AnimeFieldNames.Background)]
     public string Background { get; set; }
 
+    [JsonPropertyName(AnimeFieldNames.RelatedAnime)]
+    public RelatedAnime[] RelatedAnime { get; set; }
+
+    [JsonPropertyName(AnimeFieldNames.RelatedManga)]
+    public RelatedManga[] RelatedManga { get; set; }
+
+    [JsonPropertyName(AnimeFieldNames.Recommendations)]
+    public AnimeRecommendations[] Recommendations { get; set; }
+
+    [JsonPropertyName(AnimeFieldNames.Statistics)]
+    public Statistics Statistics { get; set; }
+
     public override string ToString() => Title;
 }
