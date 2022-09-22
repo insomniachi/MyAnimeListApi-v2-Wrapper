@@ -19,7 +19,7 @@ internal partial class AnimeEndPoint
     public int Year { get; set; }
     public AnimeSeason Season { get; set; }
     public SeasonalAnimeSort SeasonalAnimeSort { get; set; } = SeasonalAnimeSort.NumberOfUsers;
-    public string User { get; set; }
+    public string User { get; set; } = "@me";
     public AnimeStatus Status { get; set; } = AnimeStatus.None;
     public UserItemSort UserAnimeSort { get; set; } = UserItemSort.UserScore;
     public bool? IsRewatching { get; set; }

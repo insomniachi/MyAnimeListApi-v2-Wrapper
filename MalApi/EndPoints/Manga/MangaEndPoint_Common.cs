@@ -22,7 +22,7 @@ internal partial class MangaEndPoint
     public int MaxLimit { get; set; }
     public long Id { get; set; }
     public string Name { get; set; }
-    public string User { get; set; }
+    public string User { get; set; } = "@me";
     public MangaRankingType RankingType { get; set; }
     public MangaStatus Status { get; set; }
     public UserItemSort UserItemSort { get; set; }
