@@ -31,6 +31,8 @@ internal partial class AnimeEndPoint
     public string Tags { get; set; }
     public string Comments { get; set; }
     public bool ShowNsfw { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? FinishDate { get; set; }
 
     private AnimeEndPoint WithFields(params string[] fields)
     {
@@ -137,6 +139,18 @@ internal partial class AnimeEndPoint
     private AnimeEndPoint IncludeNsfw()
     {
         ShowNsfw = true;
+        return this;
+    }
+
+    private AnimeEndPoint WithStartDate(DateTime startDate)
+    {
+        StartDate = startDate;
+        return this;
+    }
+
+    private AnimeEndPoint WithFinishDate(DateTime finishDate)
+    {
+        FinishDate = finishDate;
         return this;
     }
 

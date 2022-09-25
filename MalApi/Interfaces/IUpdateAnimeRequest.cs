@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace MalApi.Interfaces;
 
@@ -13,6 +14,8 @@ public interface IUpdateAnimeRequest
     IUpdateAnimeRequest WithRewatchValue(Value rewatchValue);
     IUpdateAnimeRequest WithTags(string tags);
     IUpdateAnimeRequest WithComments(string comments);
+    IUpdateAnimeRequest WithStartDate(DateTime startDate);
+    IUpdateAnimeRequest WithFinishDate(DateTime finishDate);
     Task<UserAnimeStatus> Publish();
 
 }

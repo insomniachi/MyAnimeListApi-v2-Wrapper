@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace MalApi.Interfaces;
 
@@ -14,5 +15,7 @@ public interface IUpdateMangaRequest
     IUpdateMangaRequest WithRereadValue(Value rereadValue);
     IUpdateMangaRequest WithTags(string tags);
     IUpdateMangaRequest WithComments(string comments);
+    IUpdateMangaRequest WithStartDate(DateTime startDate);
+    IUpdateMangaRequest WithFinishDate(DateTime finishDate);
     Task<UserMangaStatus> Publish();
 }

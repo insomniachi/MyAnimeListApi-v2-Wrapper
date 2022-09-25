@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -63,6 +64,8 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
     IUpdateMangaRequest IUpdateMangaRequest.WithRereadValue(Value rereadValue) => WithRereadValue(rereadValue);
     IUpdateMangaRequest IUpdateMangaRequest.WithTags(string tags) => WithTags(tags);
     IUpdateMangaRequest IUpdateMangaRequest.WithComments(string comments) => WithComments(comments);
+    IUpdateMangaRequest IUpdateMangaRequest.WithStartDate(DateTime startDate) => WithStartDate(startDate);
+    IUpdateMangaRequest IUpdateMangaRequest.WithFinishDate(DateTime finishDate) => WithFinishDate(finishDate);
 
     private IDictionary<string, string> GetUpdateParams()
     {
@@ -116,6 +119,16 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
         if (string.IsNullOrEmpty(Comments) == false)
         {
             @params.Add("comments", Comments);
+        }
+
+        if (StartDate is { } sd)
+        {
+            @params.Add("start_date", sd.ToString("yyyy-MM-dd"));
+        }
+
+        if (FinishDate is { } fd)
+        {
+            @params.Add("finish_date", fd.ToString("yyyy-MM-dd"));
         }
 
         return @params;

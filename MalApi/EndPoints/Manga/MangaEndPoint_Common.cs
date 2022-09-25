@@ -36,6 +36,8 @@ internal partial class MangaEndPoint
     public string Tags { get; set; }
     public string Comments { get; set; }
     public bool ShowNsfw { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? FinishDate { get; set; }
 
     private MangaEndPoint WithTags(string tags)
     {
@@ -142,6 +144,18 @@ internal partial class MangaEndPoint
     private MangaEndPoint IncludeNsfw()
     {
         ShowNsfw = true;
+        return this;
+    }
+
+    private MangaEndPoint WithStartDate(DateTime startDate)
+    {
+        StartDate = startDate;
+        return this;
+    }
+
+    private MangaEndPoint WithFinishDate(DateTime finishDate)
+    {
+        FinishDate = finishDate;
         return this;
     }
 

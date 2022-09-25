@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -63,6 +64,8 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
     IUpdateAnimeRequest IUpdateAnimeRequest.WithIsRewatching(bool rewatching) => WithIsRewatching(rewatching);
     IUpdateAnimeRequest IUpdateAnimeRequest.WithComments(string comments) => WithComments(comments);
     IUpdateAnimeRequest IUpdateAnimeRequest.WithEpisodesWatched(int episodesWatched) => WithEpisodesWatched(episodesWatched);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithStartDate(DateTime startDate) => WithStartDate(startDate);
+    IUpdateAnimeRequest IUpdateAnimeRequest.WithFinishDate(DateTime finishDate) => WithFinishDate(finishDate);
 
     private IDictionary<string, string> GetUpdateParams()
     {
@@ -111,6 +114,16 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
         if (string.IsNullOrEmpty(Comments) == false)
         {
             @params.Add("comments", Comments);
+        }
+
+        if(StartDate is { } sd)
+        {
+            @params.Add("start_date", sd.ToString("yyyy-MM-dd"));
+        }
+
+        if(FinishDate is { } fd)
+        {
+            @params.Add("finish_date", fd.ToString("yyyy-MM-dd"));
         }
 
         return @params;
