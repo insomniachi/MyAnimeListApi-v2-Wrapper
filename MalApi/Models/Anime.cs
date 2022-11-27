@@ -105,5 +105,8 @@ public class Anime
     [JsonPropertyName(AnimeFieldNames.Statistics)]
     public Statistics Statistics { get; set; }
 
+    [JsonPropertyName(AnimeFieldNames.Videos)]
+    public Video[] Videos { get; set; }
+
     public override string ToString() => Title;
 }

@@ -107,5 +107,5 @@ public class OAuthToken
     public DateTime CreateAt { get; set; }
 
     [JsonIgnore]
-    public bool IsExpired => (DateTime.UtcNow - CreateAt).Days > 31;
+    public bool IsExpired => (DateTime.UtcNow - CreateAt).Days >= 28;
 }

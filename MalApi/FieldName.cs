@@ -35,4 +35,5 @@ public class AnimeFieldNames
     public const string Recommendations = "recommendations";
     public const string Studios = "studios";
     public const string Statistics = "statistics";
+    public const string Videos = "videos";
 }
