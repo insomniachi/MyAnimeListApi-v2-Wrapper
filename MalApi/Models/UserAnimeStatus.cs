@@ -21,9 +21,11 @@ public class UserAnimeStatus
     public bool IsRewatching { get; set; }
 
     [JsonPropertyName("start_date")]
+    [JsonConverter(typeof(ListDateConverter))]
     public DateTime StartDate { get; set; }
 
     [JsonPropertyName("finish_date")]
+    [JsonConverter(typeof(ListDateConverter))]
     public DateTime FinishDate { get; set; }
 
     [JsonPropertyName("priority")]

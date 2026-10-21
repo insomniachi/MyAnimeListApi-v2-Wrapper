@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using MalApi.JsonConverters;
 
 namespace MalApi;
 
@@ -21,9 +22,11 @@ public class UserMangaStatus
     public bool IsReReading { get; set; }
 
     [JsonPropertyName("start_date")]
+    [JsonConverter(typeof(ListDateConverter))]
     public DateTime StartDate { get; set; }
 
     [JsonPropertyName("finish_date")]
+    [JsonConverter(typeof(ListDateConverter))]
     public DateTime FinishDate { get; set; }
 
     [JsonPropertyName("priority")]
