@@ -36,7 +36,7 @@ public static class EnumExtensions
             UserItemSort.LastUpdated => "list_updated_at",
             UserItemSort.Title => "anime_title",
             UserItemSort.StartDate => "anime_start_date",
-            UserItemSort.Id => "anime_id ",
+            UserItemSort.Id => "anime_id",
             _ => string.Empty
         };
     }
@@ -49,7 +49,7 @@ public static class EnumExtensions
             UserItemSort.LastUpdated => "list_updated_at",
             UserItemSort.Title => "manga_title",
             UserItemSort.StartDate => "manga_start_date",
-            UserItemSort.Id => "manga_id ",
+            UserItemSort.Id => "manga_id",
             _ => string.Empty
         };
     }

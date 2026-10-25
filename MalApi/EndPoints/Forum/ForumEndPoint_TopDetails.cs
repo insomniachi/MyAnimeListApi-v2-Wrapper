@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
@@ -14,15 +11,14 @@ internal partial class ForumEndPoint : IGetForumTopicDetailsRequest
     IGetForumTopicDetailsRequest IGetForumTopicDetailsRequest.WithQuery(string query) => WithQuery(query);
     IGetForumTopicDetailsRequest IGetForumTopicDetailsRequest.WithSubBoardId(int subBoardId) => WithSubBoardId(subBoardId);
     IGetForumTopicDetailsRequest IGetForumTopicDetailsRequest.WithTopicUser(string name) => WithTopicUser(name);
-    IGetForumTopicDetailsRequest IGetForumTopicDetailsRequest.WithUser(string name) => WithUser(User);
+    IGetForumTopicDetailsRequest IGetForumTopicDetailsRequest.WithUser(string name) => WithUser(name);
     IGetForumTopicDetailsRequest IGetForumTopicDetailsRequest.WithLimit(int limit) => WithLimit(limit);
     IGetForumTopicDetailsRequest IGetForumTopicDetailsRequest.WithOffset(int offset) => WithOffset(offset);
-    
+
     async Task<PagedForumTopicDetails> IGetForumTopicDetailsRequest.Find()
     {
-        var url = QueryHelpers.AddQueryString("https://api.myanimelist.net/v2/forum/topics", GetParameters());
-        var stream = await _client.GetStreamAsync(url);
-        var root = await JsonSerializer.DeserializeAsync<ForumTopicDetailRoot>(stream);
+        var url = Http.WithQuery("https://api.myanimelist.net/v2/forum/topics", GetParameters());
+        var root = await _client.GetJson<ForumTopicDetailRoot>(url);
         return new PagedForumTopicDetails
         {
             Data = root.Details.ToList(),
@@ -32,7 +28,7 @@ internal partial class ForumEndPoint : IGetForumTopicDetailsRequest
 
     private Dictionary<string,string> GetParameters()
     {
-        var @params = new Dictionary<string, string>();
+        var @params = GetPagingParameters();
 
         if(BoardId is { } boardId)
         {
@@ -57,6 +53,18 @@ internal partial class ForumEndPoint : IGetForumTopicDetailsRequest
         if(!string.IsNullOrEmpty(User))
         {
             @params.Add("user_name", User);
+        }
+
+        return @params;
+    }
+
+    private Dictionary<string, string> GetPagingParameters()
+    {
+        var @params = new Dictionary<string, string> { ["offset"] = Offset.ToString() };
+
+        if (Limit > 0)
+        {
+            @params.Add("limit", Limit.ToString());
         }
 
         return @params;

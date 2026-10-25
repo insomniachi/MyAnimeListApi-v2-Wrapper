@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
@@ -12,10 +11,10 @@ internal partial class MangaEndPoint : IGetRankedMangaListRequest
     {
         var @params = new Dictionary<string, string>
         {
-            ["ranking_type"] = RankingType.ToString().ToLower(),
+            ["ranking_type"] = RankingType == MangaRankingType.Novel ? "novels" : RankingType.ToString().ToLower(), // MAL rejects "novel"
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
-            ["nsfw"] = ShowNsfw.ToString()
+            ["nsfw"] = ShowNsfw.ToMal()
         };
 
         if (Fields.Any())
@@ -23,7 +22,7 @@ internal partial class MangaEndPoint : IGetRankedMangaListRequest
             @params.Add("fields", string.Join(",", Fields));
         }
 
-        var url = QueryHelpers.AddQueryString("https://api.myanimelist.net/v2/manga/ranking", @params);
+        var url = Http.WithQuery("https://api.myanimelist.net/v2/manga/ranking", @params);
 
         return await ParsePagedRankedManga(url);
     }

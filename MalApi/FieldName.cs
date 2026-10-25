@@ -31,7 +31,7 @@ public class AnimeFieldNames
     public const string Pictures = "pictures";
     public const string Background = "background";
     public const string RelatedAnime = "related_anime";
-    public const string RelatedManga = "related_managa";
+    public const string RelatedManga = "related_manga";
     public const string Recommendations = "recommendations";
     public const string Studios = "studios";
     public const string Statistics = "statistics";

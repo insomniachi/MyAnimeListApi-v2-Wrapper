@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
+using System.Net.Http;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
 
@@ -55,7 +55,7 @@ internal partial class AnimeEndPoint
 
     private AnimeEndPoint WithLimit(int limit)
     {
-        if (Limit > MaxLimit)
+        if (limit > MaxLimit)
         {
             throw new ArgumentException($"argument greater than max value {MaxLimit}", nameof(limit));
         }
@@ -154,15 +154,11 @@ internal partial class AnimeEndPoint
         return this;
     }
 
-    private async Task<T> Parse<T>(string url)
-    {
-        var stream = await _client.GetStreamAsync(url);
-        return await JsonSerializer.DeserializeAsync<T>(stream);
-    }
+    private Task<PagedAnime> ParsePagedAnime(string url) => ParsePagedAnime(_client, url);
 
-    private async Task<PagedAnime> ParsePagedAnime(string url)
+    internal static async Task<PagedAnime> ParsePagedAnime(HttpClient client, string url)
     {
-        var root = await Parse<AnimeListRoot>(url);
+        var root = await client.GetJson<AnimeListRoot>(url);
 
         foreach (var item in root.AnimeList.Where(x => x.Status is not null))
         {
@@ -178,7 +174,7 @@ internal partial class AnimeEndPoint
 
     private async Task<PagedRankedAnime> ParsePagedRankedAnime(string url)
     {
-        var root = await Parse<AnimeListRoot>(url);
+        var root = await _client.GetJson<AnimeListRoot>(url);
 
         return new PagedRankedAnime
         {
@@ -187,5 +183,5 @@ internal partial class AnimeEndPoint
         };
     }
 
-    private async Task<Anime> ParseAnime(string url) => await Parse<Anime>(url);
+    private Task<Anime> ParseAnime(string url) => _client.GetJson<Anime>(url);
 }

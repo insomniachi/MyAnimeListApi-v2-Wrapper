@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
+using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -11,82 +9,45 @@ namespace MalApi;
 
 public static class MalAuthHelper
 {
-    private static readonly string _codeChallenge;
-    private static readonly string _codeVerifier;
-    private static readonly string _authUrl = "https://myanimelist.net/v1/oauth2/";
+    private const string AuthUrl = "https://myanimelist.net/v1/oauth2/";
+    private static readonly HttpClient _client = new();
 
-    static MalAuthHelper()
+    // MAL only supports the "plain" PKCE method, so the challenge is the verifier itself.
+    private static readonly string _codeVerifier =
+        RandomNumberGenerator.GetString("AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789-._~", 128);
+
+    public static string GetAuthUrl(string clientId) => Http.WithQuery(AuthUrl + "authorize", new Dictionary<string, string>
     {
-        _codeChallenge = _codeVerifier = GenerateCodeChallenge();
-    }
+        ["response_type"] = "code",
+        ["client_id"] = clientId,
+        ["code_challenge"] = _codeVerifier,
+        ["state"] = "abc"
+    });
 
-    private static string GenerateCodeChallenge()
+    /// <summary>Exchanges the sign-in code for a token. Throws <see cref="HttpRequestException"/> if MAL rejects it.</summary>
+    public static Task<OAuthToken> DoAuth(string clientId, string code) => RequestToken(new Dictionary<string, string>
     {
-        const string chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789-._~";
-        return new string(Enumerable.Repeat(chars, 128)
-          .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
-    }
+        ["client_id"] = clientId,
+        ["code"] = code,
+        ["code_verifier"] = _codeVerifier,
+        ["grant_type"] = "authorization_code"
+    });
 
-    private static async Task<OAuthToken> ReadAuthResults(HttpResponseMessage response)
+    /// <summary>Gets a new token. Throws <see cref="HttpRequestException"/> if MAL rejects it, so a bad response never replaces a saved token.</summary>
+    public static Task<OAuthToken> RefreshToken(string clientId, string refreshToken) => RequestToken(new Dictionary<string, string>
     {
-        var json = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<OAuthToken>(json);
-        result.CreateAt = DateTime.UtcNow;
-        return result;
-    }
+        ["client_id"] = clientId,
+        ["refresh_token"] = refreshToken,
+        ["grant_type"] = "refresh_token"
+    });
 
-    public static string GetAuthUrl(string clientId)
+    private static async Task<OAuthToken> RequestToken(Dictionary<string, string> form)
     {
-        var nvc = new Dictionary<string, string>
-        {
-            ["response_type"] = "code",
-            ["client_id"] = clientId,
-            ["code_challenge"] = _codeChallenge,
-            ["state"] = "abc"
-        };
-
-        StringBuilder q = new();
-        foreach (var x in nvc)
-        {
-            q.Append(x.Key + "=" + x.Value);
-            if (!x.Equals(nvc.Last()))
-                q.Append('&');
-        }
-
-        return _authUrl + "authorize?" + q;
+        using var content = new FormUrlEncodedContent(form);
+        var token = await (await _client.PostAsync(AuthUrl + "token", content).ConfigureAwait(false)).ReadJson<OAuthToken>().ConfigureAwait(false);
+        token.CreateAt = DateTime.UtcNow;
+        return token;
     }
-
-    public static async Task<OAuthToken> DoAuth(string clientId, string code)
-    {
-        var nvc = new Dictionary<string, string>
-        {
-            ["client_id"] = clientId,
-            ["code"] = code,
-            ["code_verifier"] = _codeVerifier,
-            ["grant_type"] = "authorization_code"
-        };
-
-        var req = new HttpRequestMessage(HttpMethod.Post, _authUrl + "token") { Content = new FormUrlEncodedContent(nvc) };
-        using var client = new HttpClient();
-
-        return await ReadAuthResults(await client.SendAsync(req).ConfigureAwait(false)).ConfigureAwait(false);
-    }
-
-    public static async Task<OAuthToken> RefreshToken(string clientId, string refreshToken)
-    {
-        var nvc = new Dictionary<string, string>
-        {
-            ["client_id"] = clientId,
-            ["refresh_token"] = refreshToken,
-            ["grant_type"] = "refresh_token"
-        };
-
-        var req = new HttpRequestMessage(HttpMethod.Post, _authUrl + "token") { Content = new FormUrlEncodedContent(nvc) };
-        using var client = new HttpClient();
-
-        return await ReadAuthResults(await client.SendAsync(req).ConfigureAwait(false)).ConfigureAwait(false);
-    }
-
 }
 
 public class OAuthToken

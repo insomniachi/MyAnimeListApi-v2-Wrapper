@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
@@ -15,11 +14,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
     {
         var url = $"https://api.myanimelist.net/v2/anime/{Id}/my_list_status";
         using var httpContent = new FormUrlEncodedContent(GetUpdateParams());
-        httpContent.Headers.Clear();
-        httpContent.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-        var response = await _client.PutAsync(url, httpContent);
-        var stream = await response.Content.ReadAsStreamAsync();
-        return await JsonSerializer.DeserializeAsync<UserAnimeStatus>(stream);
+        return await (await _client.PutAsync(url, httpContent)).ReadJson<UserAnimeStatus>();
     }
 
     async Task<PagedAnime> IUserAnimeListRequest.Find()
@@ -29,7 +24,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
             ["sort"] = UserAnimeSort.GetMalApiStringForAnime(),
-            ["nsfw"] = ShowNsfw.ToString()
+            ["nsfw"] = ShowNsfw.ToMal()
         };
 
         if (Status != AnimeStatus.None)
@@ -42,7 +37,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
             @params.Add("fields", string.Join(",", Fields));
         }
 
-        var url = QueryHelpers.AddQueryString($"https://api.myanimelist.net/v2/users/{User}/animelist", @params);
+        var url = Http.WithQuery($"https://api.myanimelist.net/v2/users/{User}/animelist", @params);
 
         return await ParsePagedAnime(url);
     }
@@ -78,7 +73,7 @@ internal partial class AnimeEndPoint : IUserAnimeListRequest, IUpdateAnimeReques
 
         if (IsRewatching is { } isRewatching)
         {
-            @params.Add("is_rewatching", isRewatching.ToString());
+            @params.Add("is_rewatching", isRewatching.ToMal());
         }
 
         if (Score is { } score)

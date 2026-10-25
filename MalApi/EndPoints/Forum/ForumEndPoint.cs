@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
 
@@ -17,16 +16,20 @@ internal partial class ForumEndPoint : IForumEndPoint
 
     public async Task<IEnumerable<ForumCategory>> GetBoards()
     {
-        var stream = await _client.GetStreamAsync("https://api.myanimelist.net/v2/forum/boards");
-        var root = await JsonSerializer.DeserializeAsync<ForumCategoryRoot>(stream);
+        var root = await _client.GetJson<ForumCategoryRoot>("https://api.myanimelist.net/v2/forum/boards");
         return root.Categories;
     }
 
     public IGetForumTopicRequest Topic(int topicId)
     {
         TopicId = topicId;
+        MaxLimit = 100;
         return this;
     }
 
-    public IGetForumTopicDetailsRequest Topics() => this;
+    public IGetForumTopicDetailsRequest Topics()
+    {
+        MaxLimit = 100;
+        return this;
+    }
 }

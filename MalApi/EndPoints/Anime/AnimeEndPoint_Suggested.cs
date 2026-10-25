@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
@@ -14,7 +13,7 @@ internal partial class AnimeEndPoint : IGetSuggestedAnimeListRequest
         {
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
-            ["nsfw"] = ShowNsfw.ToString()
+            ["nsfw"] = ShowNsfw.ToMal()
         };
 
         if (Fields.Any())
@@ -22,7 +21,7 @@ internal partial class AnimeEndPoint : IGetSuggestedAnimeListRequest
             @params.Add("fields", string.Join(",", Fields));
         }
 
-        var url = QueryHelpers.AddQueryString("https://api.myanimelist.net/v2/anime/suggestions", @params);
+        var url = Http.WithQuery("https://api.myanimelist.net/v2/anime/suggestions", @params);
 
         return await ParsePagedAnime(url);
     }

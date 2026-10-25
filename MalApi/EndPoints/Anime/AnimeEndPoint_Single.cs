@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
@@ -12,7 +11,7 @@ internal partial class AnimeEndPoint  : IGetAnimeRequest
     {
         var @params = new Dictionary<string, string>
         {
-            ["nsfw"] = ShowNsfw.ToString()
+            ["nsfw"] = ShowNsfw.ToMal()
         };
 
         if (Fields.Any())
@@ -20,7 +19,7 @@ internal partial class AnimeEndPoint  : IGetAnimeRequest
             @params.Add("fields", string.Join(",", Fields));
         }
 
-        var url = QueryHelpers.AddQueryString($"https://api.myanimelist.net/v2/anime/{Id}", @params);
+        var url = Http.WithQuery($"https://api.myanimelist.net/v2/anime/{Id}", @params);
 
         return await ParseAnime(url);
     }

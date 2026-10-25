@@ -52,7 +52,7 @@ internal partial class ForumEndPoint
 
     private ForumEndPoint WithLimit(int limit)
     {
-        if (Limit > MaxLimit)
+        if (limit > MaxLimit)
         {
             throw new ArgumentException($"argument greater than max value {MaxLimit}", nameof(limit));
         }

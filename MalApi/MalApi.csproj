@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Platforms>x64</Platforms>
+		<TargetFramework>net10.0</TargetFramework>
 		<Description>C# wrapper for MyAnimeList API v2</Description>
 		<PackageProjectUrl></PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -19,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+		<InternalsVisibleTo Include="MalApi.Tests" />
 	</ItemGroup>
 
 </Project>

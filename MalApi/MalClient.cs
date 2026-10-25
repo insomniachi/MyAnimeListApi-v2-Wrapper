@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text.Json;
 using System.Threading.Tasks;
 using MalApi.EndPoints;
 using MalApi.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi;
 
 public sealed class MalClient : IMalClient
 {
+    private const string ClientIdHeader = "X-MAL-CLIENT-ID";
     private readonly HttpClient _client = new();
 
     public void SetAccessToken(string accessToken)
@@ -22,7 +20,8 @@ public sealed class MalClient : IMalClient
 
     public void SetClientId(string id)
     {
-        _client.DefaultRequestHeaders.Add("X-MAL-CLIENT-ID", id);
+        _client.DefaultRequestHeaders.Remove(ClientIdHeader);
+        _client.DefaultRequestHeaders.Add(ClientIdHeader, id);
     }
 
     public bool IsAuthenticated { get; set; }
@@ -33,26 +32,16 @@ public sealed class MalClient : IMalClient
     public IMangaEndPoint Manga() => new MangaEndPoint(_client);
     public IForumEndPoint Forum() => new ForumEndPoint(_client);
 
-    public async Task<MalUser> User()
+    public Task<MalUser> User()
     {
-        var url = QueryHelpers.AddQueryString("https://api.myanimelist.net/v2/users/@me", new Dictionary<string, string>
+        var url = Http.WithQuery("https://api.myanimelist.net/v2/users/@me", new Dictionary<string, string>
         {
             ["fields"] = "anime_statistics"
         });
 
-        var stream = await _client.GetStreamAsync(url);
-        return await JsonSerializer.DeserializeAsync<MalUser>(stream);
+        return _client.GetJson<MalUser>(url);
     }
 
-    public async Task<PagedAnime> GetNextAnimePage(PagedAnime pagedData)
-    {
-        var stream = await _client.GetStreamAsync(pagedData.Paging.Next);
-        var root = await JsonSerializer.DeserializeAsync<AnimeListRoot>(stream);
-     
-        return new PagedAnime
-        {
-            Paging = root.Paging,
-            Data = root.AnimeList.Select(x => x.Anime).ToList()
-        };
-    }
+    // Same parsing as the first page, so list statuses aren't dropped from later pages.
+    public Task<PagedAnime> GetNextAnimePage(PagedAnime pagedData) => AnimeEndPoint.ParsePagedAnime(_client, pagedData.Paging.Next);
 }

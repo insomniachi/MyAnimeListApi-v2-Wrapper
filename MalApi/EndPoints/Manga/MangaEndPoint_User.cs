@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaRequest
@@ -18,7 +17,7 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
             ["limit"] = Limit.ToString(),
             ["offset"] = Offset.ToString(),
             ["sort"] = UserItemSort.GetMalApiStringForManga(),
-            ["nsfw"] = ShowNsfw.ToString()
+            ["nsfw"] = ShowNsfw.ToMal()
         };
 
         if (Status != MangaStatus.None)
@@ -31,7 +30,7 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
             @params.Add("fields", string.Join(",", Fields));
         }
 
-        var url = QueryHelpers.AddQueryString($"https://api.myanimelist.net/v2/users/{User}/animelist", @params);
+        var url = Http.WithQuery($"https://api.myanimelist.net/v2/users/{User}/mangalist", @params);
 
         return await ParsePagedManga(url);
     }
@@ -40,11 +39,7 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
     {
         var url = $"https://api.myanimelist.net/v2/manga/{Id}/my_list_status";
         using var httpContent = new FormUrlEncodedContent(GetUpdateParams());
-        httpContent.Headers.Clear();
-        httpContent.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-        var response = await _client.PutAsync(url, httpContent);
-        var stream = await response.Content.ReadAsStreamAsync();
-        return await JsonSerializer.DeserializeAsync<UserMangaStatus>(stream);
+        return await (await _client.PutAsync(url, httpContent)).ReadJson<UserMangaStatus>();
     }
 
     IUserMangaListRequest IUserMangaListRequest.WithStatus(MangaStatus status) => WithStatus(status);
@@ -78,7 +73,7 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
 
         if (IsRereading is { } isRereading)
         {
-            @params.Add("is_rereading", isRereading.ToString());
+            @params.Add("is_rereading", isRereading.ToMal());
         }
 
         if (Score is { } score)
@@ -108,7 +103,7 @@ internal partial class MangaEndPoint : IUserMangaListRequest, IUpdateMangaReques
 
         if (RereadValue is { } value)
         {
-            @params.Add("rewatch_value", ((int)value).ToString());
+            @params.Add("reread_value", ((int)value).ToString());
         }
 
         if (string.IsNullOrEmpty(Tags) == false)

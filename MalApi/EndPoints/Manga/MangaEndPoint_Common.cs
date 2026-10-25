@@ -114,7 +114,7 @@ internal partial class MangaEndPoint
 
     private MangaEndPoint WithLimit(int limit)
     {
-        if (Limit > MaxLimit)
+        if (limit > MaxLimit)
         {
             throw new ArgumentException($"argument greater than max value {MaxLimit}", nameof(limit));
         }
@@ -159,16 +159,9 @@ internal partial class MangaEndPoint
         return this;
     }
 
-    private async Task<T> Parse<T>(string url)
-    {
-        var stream = await _client.GetStreamAsync(url);
-        return await JsonSerializer.DeserializeAsync<T>(stream);
-    }
-
-
     private async Task<PagedManga> ParsePagedManga(string url)
     {
-        var root = await Parse<MangaListRoot>(url);
+        var root = await _client.GetJson<MangaListRoot>(url);
 
         foreach (var item in root.MangaList.Where(x => x.Status is not null))
         {
@@ -184,7 +177,7 @@ internal partial class MangaEndPoint
 
     private async Task<PagedRankedManga> ParsePagedRankedManga(string url)
     {
-        var root = await Parse<MangaListRoot>(url);
+        var root = await _client.GetJson<MangaListRoot>(url);
 
         return new PagedRankedManga
         {
@@ -193,5 +186,5 @@ internal partial class MangaEndPoint
         };
     }
 
-    private async Task<Manga> ParseManga(string url) => await Parse<Manga>(url);
+    private Task<Manga> ParseManga(string url) => _client.GetJson<Manga>(url);
 }

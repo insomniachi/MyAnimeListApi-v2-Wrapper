@@ -6,7 +6,7 @@ namespace MalApi.Tests;
 public class MalClientWrapper
 {
     private static MalClientWrapper _wrapper;
-    public static MalClientWrapper Instance => _wrapper ?? new();
+    public static MalClientWrapper Instance => _wrapper ??= new();
     
     public OAuthToken OAuthToken { get; set; }
     public IMalClient Client { get; }

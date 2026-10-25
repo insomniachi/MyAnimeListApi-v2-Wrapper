@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MalApi.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace MalApi.EndPoints;
 
@@ -13,7 +12,7 @@ internal partial class MangaEndPoint : IGetMangaRequest
     {
         var @params = new Dictionary<string, string>
         {
-            ["nsfw"] = ShowNsfw.ToString()
+            ["nsfw"] = ShowNsfw.ToMal()
         };
 
         if (Fields.Any())
@@ -21,7 +20,7 @@ internal partial class MangaEndPoint : IGetMangaRequest
             @params.Add("fields", string.Join(",", Fields));
         }
 
-        var url = QueryHelpers.AddQueryString($"https://api.myanimelist.net/v2/manga/{Id}", @params);
+        var url = Http.WithQuery($"https://api.myanimelist.net/v2/manga/{Id}", @params);
 
         return await ParseManga(url);
     }
